@@ -19,6 +19,25 @@
   }
 }
 
+/* Visibility Utilities */
+.desktop-only {
+  display: flex !important;
+}
+
+.mobile-only {
+  display: none !important;
+}
+
+@media (max-width: 850px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
