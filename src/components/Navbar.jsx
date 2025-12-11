@@ -4,8 +4,9 @@ const navItems = [
     { label: 'Home', id: 'hero' },
     { label: 'Philosophy', id: 'about' },
     { label: 'Capabilities', id: 'capabilities' },
+    { label: 'Architecture', id: 'architecture' },
+    { label: 'Vs Others', id: 'comparison' },
     { label: 'Setup', id: 'setup' },
-    { label: 'Legal', id: 'legal' },
     { label: 'Contact', id: 'contact' }
 ];
 

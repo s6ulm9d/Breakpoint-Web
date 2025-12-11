@@ -75,7 +75,7 @@ export default function ContactSection() {
                             link="https://github.com/s6ulm9d"
                         />
                         <ContactItem
-                            label="LikedIn"
+                            label="LinkedIn"
                             value="Megha Sairaj"
                             link="https://www.linkedin.com/in/sairaj-megha-0110b9392/"
                         />
@@ -92,7 +92,7 @@ export default function ContactSection() {
                         whileInView={{ opacity: 1, x: 0 }}
                         style={{ flex: 1, minWidth: '300px' }}
                     >
-                        <h3 style={{ color: 'var(--color-text)', marginBottom: '30px' }}>Send Encypted Message</h3>
+                        <h3 style={{ color: 'var(--color-text)', marginBottom: '30px' }}>Send Encrypted Message</h3>
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                             <div>
                                 <label style={{ color: 'var(--color-text)', opacity: 0.6, fontSize: '0.8rem', marginBottom: '5px', display: 'block' }}>IDENTITY</label>

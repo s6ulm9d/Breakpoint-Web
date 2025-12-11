@@ -8,6 +8,8 @@ import Manifesto from './components/Manifesto';
 import ContactSection from './components/ContactSection';
 import Navbar from './components/Navbar';
 
+import ComparisonTable from './components/ComparisonTable';
+
 export default function App() {
   const [isDark, setIsDark] = useState(true);
 
@@ -41,6 +43,8 @@ export default function App() {
         <Hero />
 
         <ProfessionalContent />
+
+        <ComparisonTable />
 
         <TechStack />
 

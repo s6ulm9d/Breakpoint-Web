@@ -111,11 +111,12 @@ export default function ProfessionalContent() {
                         { name: "HTTP Desync", desc: "Request Smuggling via Transfer-Encoding: chunked CL.TE/TE.CL." }
                     ]} />
 
-                    <FeatureList title="AUTHENTICATION & LOGIC" features={[
-                        { name: "JWT Attacks", desc: "'None' algorithm, weak secrets, and key confusion." },
-                        { name: "IDOR", desc: "Insecure Direct Object Reference (enumerating user IDs)." },
-                        { name: "Race Conditions", desc: "Time-of-check to Time-of-use (TOCTOU) flaws (e.g. Double Spend)." },
-                        { name: "SSRF", desc: "Server-Side Request Forgery targeting Cloud Metadata (AWS IMDSv2, GCP)." }
+                    <FeatureList title="AUTHENTICATION & LOGIC FLAWS" features={[
+                        { name: "JWT Attacks", desc: "Forging Admin tokens via 'None' algorithm, weak HMAC secrets, and key confusion (RSA->HMAC)." },
+                        { name: "IDOR / BOLA", desc: "Broken Object Level Authorization. Iterates violently through user IDs to find data leaks." },
+                        { name: "Race Conditions", desc: "Exploiting Time-of-Check/Time-of-Use (TOCTOU) for double-spending or inventory bypass." },
+                        { name: "SSRF (Cloud)", desc: "Targeting AWS IMDSv2 (169.254.169.254), GCP Metadata, and internal K8s endpoints." },
+                        { name: "Prototype Pollution", desc: "Injecting properties into Object.prototype to alter application logic globally." }
                     ]} />
                 </div>
             </Section>
@@ -182,49 +183,35 @@ class BreakpointEngine:
 
                     {/* STEP 2 */}
                     <div>
-                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 2: Clone & Configure</h4>
+                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 2: Download Binary</h4>
                         <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7, marginBottom: '10px' }}>
-                            Clone the repository to your secure workspace.
+                            Fetch the latest pre-compiled binary for your architecture from Releases.
                         </p>
-                        <CodeBlock label="TERMINAL" code={`# Clone the repository
-git clone https://github.com/s6ulm9d/Breakpoint.git
+                        <CodeBlock label="TERMINAL (WINDOWS)" code={`# Download latest release
+Invoke-WebRequest -Uri "https://github.com/s6ulm9d/Breakpoint/releases/latest/download/breakpoint-windows.exe" -OutFile "breakpoint.exe"`} />
 
-# Navigate to the project directory
-cd Breakpoint`} />
+                        <CodeBlock label="TERMINAL (LINUX/MAC)" code={`# Download and make executable
+curl -L -o breakpoint https://github.com/s6ulm9d/Breakpoint/releases/latest/download/breakpoint-linux
+chmod +x breakpoint`} />
                     </div>
 
                     {/* STEP 3 */}
                     <div>
-                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 3: Environment Setup (Critical)</h4>
+                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 3: Verify Signature</h4>
                         <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7, marginBottom: '10px' }}>
-                            Always use a virtual environment to prevent dependency conflicts with your system python.
+                            Validate the cryptographic signature of the binary before execution.
                         </p>
-                        <CodeBlock label="TERMINAL (WINDOWS)" code={`# Create virtual environment
-python -m venv .venv
-
-# Activate environment
-.venv\\Scripts\\activate
-
-# Install dependencies
-pip install -r requirements.txt`} />
-
-                        <CodeBlock label="TERMINAL (LINUX / MACOS)" code={`# Create virtual environment
-python3 -m venv .venv
-
-# Activate environment
-source .venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt`} />
+                        <CodeBlock label="TERMINAL" code={`./breakpoint --version
+> Breakpoint v2.0.0-ELITE (Build: 2025-12)`} />
                     </div>
 
                     {/* STEP 4 */}
                     <div>
-                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 4: Verify Installation</h4>
+                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 4: Launch Audit (Direct)</h4>
                         <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7, marginBottom: '10px' }}>
-                            Run the help command to ensure the engine is correctly linked.
+                            Execute the binary directly against the target.
                         </p>
-                        <CodeBlock label="TERMINAL" code={`python -m breakpoint --help`} />
+                        <CodeBlock label="TERMINAL" code={`./breakpoint --target http://localhost:3000`} />
                     </div>
 
                     {/* STEP 5 */}
@@ -233,12 +220,70 @@ pip install -r requirements.txt`} />
                         <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7, marginBottom: '10px' }}>
                             Run the "Elite Scenarios" against a test target.
                         </p>
-                        <CodeBlock label="TERMINAL" code={`python -m breakpoint \\
+                        <CodeBlock label="TERMINAL" code={`./breakpoint \\
   --base-url http://localhost:3000 \\
   --scenarios examples/elite_scenarios.yaml \\
   --html-report audit_results.html`} />
                     </div>
 
+                </div>
+            </Section>
+
+            {/* NEW SECTION: CI/CD INTEGRATION */}
+            <Section title="CI/CD Pipeline Integration" id="cicd">
+                <p style={{ marginBottom: '30px', color: 'var(--color-text)', fontSize: '1.1rem' }}>
+                    Shift Left securely. Embed <strong>BREAKPOINT</strong> directly into your GitHub Actions workflow to block vulnerable builds before they reach production.
+                </p>
+
+                <div style={{ marginBottom: '40px' }}>
+                    <h4 style={{ color: 'var(--color-text)', marginBottom: '15px' }}>GitHub Actions Workflow (.github/workflows/security.yml)</h4>
+                    <CodeBlock label="YAML" code={`name: Breakpoint Security Scan
+on: [push, pull_request]
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Run Attack Simulation
+        run: |
+          # Download Binary
+          curl -L -o breakpoint https://github.com/s6ulm9d/Breakpoint/releases/latest/download/breakpoint-linux
+          chmod +x breakpoint
+          
+          # Fails build if risk_score > 8.0 (Critical)
+          ./breakpoint --target https://staging.myapp.com --threshold 8.0 --ci
+          
+      - name: Upload Forensic Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-report
+          path: audit_results.html`} />
+                </div>
+
+                <div>
+                    <h4 style={{ color: 'var(--color-text)', marginBottom: '15px' }}>Exit Codes & Thresholds</h4>
+                    <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
+                        The CLI is designed for automation. It returns standard POSIX exit codes based on scan results.
+                    </p>
+                    <ul style={{ listStyle: 'none', padding: 0, color: 'var(--color-text)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                        <li style={{ padding: '15px', border: '1px solid #333', background: 'var(--color-dim)' }}>
+                            <strong style={{ color: '#00ff41' }}>Exit 0</strong><br />No Critical Vulnerabilities
+                        </li>
+                        <li style={{ padding: '15px', border: '1px solid #333', background: 'var(--color-dim)' }}>
+                            <strong style={{ color: '#ff3e3e' }}>Exit 1</strong><br />Critical Vulnerability Found
+                        </li>
+                        <li style={{ padding: '15px', border: '1px solid #333', background: 'var(--color-dim)' }}>
+                            <strong style={{ color: '#ffbd2e' }}>Exit 2</strong><br />Connection/Target Error
+                        </li>
+                    </ul>
                 </div>
             </Section>
 
