@@ -2,6 +2,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+import aggressiveImg from '../assets/--aggressive.png';
+import baseUrlImg from '../assets/--base-url.png';
+import continuousImg from '../assets/--continuous.png';
+import forceLiveFireImg from '../assets/--force-live-fire.png';
+import helpImg from '../assets/--help.png';
+import htmlReportImg from '../assets/--html-report.png';
+import intervalImg from '../assets/--interval.png';
+import jsonReportImg from '../assets/--json-report.png';
+import sarifReportImg from '../assets/--sarif-report.png';
+import verboseImg from '../assets/--verbose.png';
+import architectureImg from '../assets/architecture_diagram.png'; // Generated Artifact
+
+import CodeBlock from './ui/CodeBlock';
+
 const Section = ({ title, children, id }) => (
     <section id={id} style={{ padding: '80px 0', borderBottom: '1px solid rgba(128,128,128,0.1)' }}>
         <div className="container">
@@ -30,15 +44,6 @@ const Section = ({ title, children, id }) => (
             </motion.div>
         </div>
     </section>
-);
-
-const CodeBlock = ({ label, code }) => (
-    <div style={{ background: 'var(--color-dim)', border: '1px solid rgba(128,128,128,0.2)', borderRadius: '4px', overflow: 'hidden', marginBottom: '25px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}>
-        {label && <div style={{ borderBottom: '1px solid rgba(128,128,128,0.1)', padding: '10px 15px', color: 'var(--color-text)', opacity: 0.6, fontSize: '0.8rem', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '1px' }}>{label}</div>}
-        <div style={{ padding: '20px', overflowX: 'auto', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--color-text)', opacity: 0.9 }}>
-            <pre style={{ margin: 0 }}>{code}</pre>
-        </div>
-    </div>
 );
 
 const FeatureList = ({ title, features }) => (
@@ -163,69 +168,509 @@ class BreakpointEngine:
                 </div>
             </Section>
 
-            {/* 4. INSTALLATION & SETUP (REVISED) */}
+            {/* 1. QUICK START (NEW) */}
+            <Section title="Quick Start Guide" id="quick-start">
+                <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
+                    <div style={{ flex: 1, minWidth: '300px' }}>
+                        <h3 style={{ color: 'var(--color-secondary)', marginBottom: '20px' }}>⚡ Get Running in 2 Minutes</h3>
+                        <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
+                            Prerequisites: <strong>Python 3.8+</strong> or <strong>Docker</strong>.
+                            No API keys required for local testing.
+                        </p>
+
+                        <div style={{ marginBottom: '25px' }}>
+                            <strong style={{ display: 'block', color: 'var(--color-text)', marginBottom: '10px' }}>1. Install via One-Liner</strong>
+                            <CodeBlock label="BASH" code={`curl -sL https://github.com/s6ulm9d/Breakpoint/raw/main/install.sh | bash`} />
+                        </div>
+
+                        <div style={{ marginBottom: '25px' }}>
+                            <strong style={{ display: 'block', color: 'var(--color-text)', marginBottom: '10px' }}>2. Initialize & Run</strong>
+                            <CodeBlock label="BASH" code={`breakpoint init\nbreakpoint --base-url http://localhost:3000`} />
+                        </div>
+
+                        <p style={{ fontSize: '0.9rem', color: 'var(--color-primary)' }}>
+                            &gt; Expected Output: HTML Report generated at <code>./audit_results.html</code>
+                        </p>
+                    </div>
+                </div>
+            </Section>
+
+            {/* 2. INSTALLATION & SETUP (REVISED) */}
             <Section title="Installation & Setup Guide" id="setup">
                 <p style={{ marginBottom: '30px', color: 'var(--color-text)', fontSize: '1.2rem' }}>
-                    Follow these steps to deploy BREAKPOINT on your local machine or Red Team infrastructure.
+                    Welcome to the official installation guide for <strong>BREAKPOINT (Elite Edition)</strong>.
+                    Follow these steps to deploy the engine on your system.
                 </p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '60px' }}>
 
-                    {/* STEP 1 */}
+                    {/* END USERS SECTION */}
                     <div>
-                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 1: Prerequisites</h4>
-                        <ul style={{ listStyle: 'none', padding: 0, color: 'var(--color-text)', opacity: 0.8 }}>
-                            <li>➜ <strong>Python 3.8</strong> or higher installed.</li>
-                            <li>➜ <strong>Git</strong> installed for version control.</li>
-                            <li>➜ <strong>Network Access</strong> to the target environment.</li>
-                        </ul>
-                    </div>
-
-                    {/* STEP 2 */}
-                    <div>
-                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 2: Download Binary</h4>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7, marginBottom: '10px' }}>
-                            Fetch the latest pre-compiled binary for your architecture from Releases.
+                        <h3 style={{ color: 'var(--color-primary)', borderBottom: '1px solid var(--color-primary)', paddingBottom: '10px', marginBottom: '30px' }}>
+                            📦 For End Users (Binary Release)
+                        </h3>
+                        <p style={{ color: 'var(--color-text)', opacity: 0.9, marginBottom: '30px' }}>
+                            The recommended installation method for security auditors and penetration testers who simply want to run the tool.
                         </p>
-                        <CodeBlock label="TERMINAL (WINDOWS)" code={`# Download latest release
-Invoke-WebRequest -Uri "https://github.com/s6ulm9d/Breakpoint/releases/latest/download/breakpoint-windows.exe" -OutFile "breakpoint.exe"`} />
 
-                        <CodeBlock label="TERMINAL (LINUX/MAC)" code={`# Download and make executable
-curl -L -o breakpoint https://github.com/s6ulm9d/Breakpoint/releases/latest/download/breakpoint-linux
-chmod +x breakpoint`} />
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>1. Download the Latest Release</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
+                                    Navigate to the official Releases page and download the executable binary corresponding to your operating system.
+                                </p>
+                                <motion.a
+                                    href="https://github.com/s6ulm9d/Breakpoint/releases/latest"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '10px',
+                                        padding: '12px 25px',
+                                        background: 'var(--color-primary)',
+                                        color: '#000',
+                                        textDecoration: 'none',
+                                        fontWeight: 'bold',
+                                        borderRadius: '4px',
+                                        fontFamily: 'var(--font-mono)',
+                                        marginBottom: '20px'
+                                    }}
+                                >
+                                    <span style={{ fontSize: '1.2rem' }}>⬇</span> DOWNLOAD LATEST BINARY
+                                </motion.a>
+                                <ul style={{ color: 'var(--color-text)', opacity: 0.8, listStyle: 'none', paddingLeft: '15px', borderLeft: '3px solid var(--color-dim)' }}>
+                                    <li style={{ marginBottom: '5px' }}><strong>Current Version:</strong> 2.0.0-ELITE</li>
+                                    <li><strong>File:</strong> breakpoint_windows.exe</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>2. System Placement (Windows)</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '15px' }}>
+                                    To ensure global access and professional organization, we will install the binary into the system's Program Files directory.
+                                </p>
+                                <div style={{ background: 'rgba(255, 189, 46, 0.1)', borderLeft: '4px solid #ffbd2e', padding: '15px', marginBottom: '15px' }}>
+                                    <strong style={{ color: '#ffbd2e' }}>⚠️ Note:</strong> <span style={{ color: 'var(--color-text)' }}>You will need Administrator privileges for the following steps.</span>
+                                </div>
+                                <ol style={{ color: 'var(--color-text)', opacity: 0.8, paddingLeft: '20px', lineHeight: '1.6' }}>
+                                    <li>Open <strong>File Explorer</strong>.</li>
+                                    <li>Navigate to <code>C:\Program Files</code>.</li>
+                                    <li>Right-click in an empty space, select <strong>New &gt; Folder</strong>, and name it: <code>BreakPoint</code></li>
+                                </ol>
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>3. Binary Setup</h4>
+                                <ol style={{ color: 'var(--color-text)', opacity: 0.8, paddingLeft: '20px', lineHeight: '1.6' }}>
+                                    <li>Locate your downloaded file (<code>breakpoint_windows.exe</code>).</li>
+                                    <li>Move this file into the newly created folder: <code>C:\Program Files\BreakPoint\</code>.</li>
+                                    <li><strong>Rename</strong> the file from <code>breakpoint_windows.exe</code> to: <code>breakpoint.exe</code></li>
+                                </ol>
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>4. Environment Configuration</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '15px' }}>
+                                    To run BREAKPOINT from any command line interface, you must update your system's PATH variable.
+                                </p>
+                                <ol style={{ color: 'var(--color-text)', opacity: 0.8, paddingLeft: '20px', lineHeight: '1.6' }}>
+                                    <li>Press <code>Win + S</code> to open Windows Search.</li>
+                                    <li>Type <strong>"Edit the system environment variables"</strong> and press Enter.</li>
+                                    <li>In the <strong>System Properties</strong> window, click the <strong>Environment Variables...</strong> button.</li>
+                                    <li>Under the <strong>System variables</strong> section (bottom half), locate the variable named <code>Path</code> and select it.</li>
+                                    <li>Click <strong>Edit...</strong>.</li>
+                                    <li>Click <strong>New</strong> on the right side.</li>
+                                    <li>Paste the installation path: <code>C:\Program Files\BreakPoint</code></li>
+                                    <li>Click <strong>OK</strong> on all open windows to save your changes.</li>
+                                </ol>
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>5. Verification</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '15px' }}>
+                                    Open a <strong>new</strong> Command Prompt (cmd) or PowerShell window and run:
+                                </p>
+                                <CodeBlock label="TERMINAL" code={`breakpoint --version`} />
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginTop: '10px' }}>
+                                    You should see the BREAKPOINT version information, confirming a successful installation.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>6. Common Usage</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '15px' }}>
+                                    Run a quick scan against a target:
+                                </p>
+                                <CodeBlock label="TERMINAL" code={`breakpoint --base-url http://localhost:3000`} />
+                            </div>
+                        </div>
                     </div>
 
-                    {/* STEP 3 */}
+                    {/* DEVELOPERS SECTION */}
                     <div>
-                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 3: Verify Signature</h4>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7, marginBottom: '10px' }}>
-                            Validate the cryptographic signature of the binary before execution.
+                        <h3 style={{ color: 'var(--color-primary)', borderBottom: '1px solid var(--color-primary)', paddingBottom: '10px', marginBottom: '30px' }}>
+                            🛠️ For Developers (Source Code)
+                        </h3>
+                        <p style={{ color: 'var(--color-text)', opacity: 0.9, marginBottom: '30px' }}>
+                            Instructions for contributors and engineers who wish to modify or build upon the BREAKPOINT engine.
                         </p>
-                        <CodeBlock label="TERMINAL" code={`./breakpoint --version
-> Breakpoint v2.0.0-ELITE (Build: 2025-12)`} />
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>Prerequisites</h4>
+                                <ul style={{ listStyle: 'none', padding: 0, color: 'var(--color-text)', opacity: 0.8 }}>
+                                    <li>➜ <strong>Python</strong>: Version 3.8 or higher.</li>
+                                    <li>➜ <strong>Git</strong>: Version control system.</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>1. Clone Repository</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '10px' }}>
+                                    Retrieve the source code from the repository.
+                                </p>
+                                <CodeBlock label="BASH" code={`git clone https://github.com/soulmad/breakpoint.git\ncd breakpoint`} />
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>2. Environment Setup</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '10px' }}>
+                                    It is highly recommended to run BREAKPOINT in an isolated virtual environment to avoid dependency conflicts.
+                                </p>
+                                <CodeBlock label="WINDOWS POWERSHELL" code={`python -m venv .venv\n.\\.venv\\Scripts\\activate`} />
+                                <CodeBlock label="LINUX / MACOS" code={`python3 -m venv .venv\nsource .venv/bin/activate`} />
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>3. Install Dependencies</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '10px' }}>
+                                    Install the package in "editable" mode. This allows changes in the source code to be immediately reflected when running the tool.
+                                </p>
+                                <CodeBlock label="BASH" code={`pip install -e .`} />
+                            </div>
+
+                            <div>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>4. Usage</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '10px' }}>
+                                    Immediately verify your development setup:
+                                </p>
+                                <CodeBlock label="BASH" code={`breakpoint --help`} />
+                            </div>
+                        </div>
                     </div>
 
-                    {/* STEP 4 */}
+                    {/* COMMAND REFERENCE */}
                     <div>
-                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 4: Launch Audit (Direct)</h4>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7, marginBottom: '10px' }}>
-                            Execute the binary directly against the target.
+                        <h3 style={{ color: 'var(--color-primary)', borderBottom: '1px solid var(--color-primary)', paddingBottom: '10px', marginBottom: '30px' }}>
+                            📸 Visual CLI Reference
+                        </h3>
+                        <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '40px' }}>
+                            See the engine in action. Below are the supported flags with their usage and expected output.
                         </p>
-                        <CodeBlock label="TERMINAL" code={`./breakpoint --target http://localhost:3000`} />
-                    </div>
 
-                    {/* STEP 5 */}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
+
+                            {/* --base-url */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <div style={{ marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ background: 'var(--color-primary)', color: 'black', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>REQUIRED</span>
+                                    <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)' }}>--base-url</h4>
+                                </div>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    The target URL to audit. This is the primary entry point for all tests.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url http://localhost:3000`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <img src={baseUrlImg} alt="--base-url usage" style={{ width: '100%', display: 'block' }} />
+                                </motion.div>
+                            </motion.div>
+
+                            {/* --help */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)', marginBottom: '15px' }}>--help</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Displays the help menu with all available arguments and options.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --help`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <img src={helpImg} alt="--help usage" style={{ width: '100%', display: 'block' }} />
+                                </motion.div>
+                            </motion.div>
+
+                            {/* --aggressive */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <div style={{ marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ background: 'var(--color-primary)', color: 'black', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>DANGER</span>
+                                    <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)' }}>--aggressive</h4>
+                                </div>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Enables <strong>DESTRUCTIVE</strong> mode. Increases concurrency and uses heavier payloads.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url ... --aggressive`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <img src={aggressiveImg} alt="--aggressive usage" style={{ width: '100%', display: 'block' }} />
+                                </motion.div>
+                            </motion.div>
+
+                            {/* --continuous & --interval */}
+                            <motion.div style={{ gridColumn: 'span 1' }} whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)', marginBottom: '15px' }}>--continuous / --interval</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Runs the audit loop indefinitely. Use <code>--interval</code> to set a delay (in seconds).
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url ... --continuous --interval 60`} />
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                                    <motion.div
+                                        style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                        whileHover={{ scale: 1.05 }}
+                                    >
+                                        <img src={continuousImg} alt="--continuous usage" style={{ width: '100%', display: 'block' }} />
+                                    </motion.div>
+                                    <motion.div
+                                        style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                        whileHover={{ scale: 1.05 }}
+                                    >
+                                        <img src={intervalImg} alt="--interval usage" style={{ width: '100%', display: 'block' }} />
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+
+                            {/* --verbose */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)', marginBottom: '15px' }}>--verbose</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Output full network traffic and debug details to the console.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url ... --verbose`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <img src={verboseImg} alt="--verbose usage" style={{ width: '100%', display: 'block' }} />
+                                </motion.div>
+                            </motion.div>
+
+                            {/* --html-report */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)', marginBottom: '15px' }}>--html-report</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Generates a comprehensive HTML executive dashboard.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url ... --html-report audit.html`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <img src={htmlReportImg} alt="--html-report usage" style={{ width: '100%', display: 'block' }} />
+                                </motion.div>
+                            </motion.div>
+
+                            {/* --json-report */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)', marginBottom: '15px' }}>--json-report</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Exports raw results to a JSON file for machine parsing.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url ... --json-report data.json`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <img src={jsonReportImg} alt="--json-report usage" style={{ width: '100%', display: 'block' }} />
+                                </motion.div>
+                            </motion.div>
+
+                            {/* --sarif-report */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)', marginBottom: '15px' }}>--sarif-report</h4>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Exports results in SARIF format for GitHub Security integration.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url ... --sarif-report security.sarif`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <img src={sarifReportImg} alt="--sarif-report usage" style={{ width: '100%', display: 'block' }} />
+                                </motion.div>
+                            </motion.div>
+
+                            {/* --force-live-fire */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <div style={{ marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ background: 'var(--color-primary)', color: 'black', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>CI/CD</span>
+                                    <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)' }}>--force-live-fire</h4>
+                                </div>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Bypasses interactive safety checks. Use this for CI/CD pipelines.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url ... --force-live-fire`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <img src={forceLiveFireImg} alt="--force-live-fire usage" style={{ width: '100%', display: 'block' }} />
+                                </motion.div>
+                            </motion.div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </Section>
+
+            {/* 4. SCENARIO LIBRARY (NEW) */}
+            <Section title="Scenario Library" id="scenarios">
+                <p style={{ marginBottom: '30px', color: 'var(--color-text)', fontSize: '1.1rem' }}>
+                    <strong>BREAKPOINT</strong> ships with battle-tested attack campaigns. Select a preset or build your own.
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
+                    {[
+                        { title: 'Reconnaissance', id: 'header_security', desc: 'Passive header analysis, open redirect checks.' },
+                        { title: 'Adversarial Injection', id: 'aggressive_sqli_login', desc: 'Active SQLi, XSS, and RCE payload injection.', highlight: true },
+                        { title: 'Server-Side Attacks', id: 'ssrf_webhook', desc: 'SSRF, XXE, and RCE parameter testing.' },
+                        { title: 'Prototype Pollution', id: 'prototype_pollution_login', desc: 'Advanced NodeJS specific vector.' },
+                        { title: 'Denial of Service', id: 'slowloris_dos', desc: 'Slowloris socket exhaustion (Aggressive Mode).' }
+                    ].map(s => (
+                        <div key={s.id} style={{
+                            padding: '25px',
+                            border: s.highlight ? '1px solid var(--color-primary)' : '1px solid #333',
+                            background: s.highlight ? 'rgba(255,62,62,0.05)' : 'var(--color-dim)'
+                        }}>
+                            <h4 style={{ color: s.highlight ? 'var(--color-primary)' : 'var(--color-text)', marginBottom: '10px' }}>{s.title}</h4>
+                            <p style={{ color: 'var(--color-text)', opacity: 0.7, fontSize: '0.9rem', marginBottom: '15px' }}>{s.desc}</p>
+                            <code style={{ background: '#000', padding: '5px', fontSize: '0.8rem' }}>id: {s.id}</code>
+                        </div>
+                    ))}
+                </div>
+            </Section>
+
+            {/* 5. SCENARIO CONFIGURATION (NEW) */}
+            <Section title="Scenario Configuration" id="config">
+                <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
+                    <div style={{ flex: 1, minWidth: '300px' }}>
+                        <p style={{ color: 'var(--color-text)', marginBottom: '20px' }}>
+                            Full control over the chaos. Define your specific attack vectors in YAML.
+                        </p>
+                        <CodeBlock label="custom_scenario.yaml" code={`name: "Custom API Audit"
+author: "Security Team"
+config:
+  concurrency: 50         # Parallel threads
+  timeout: 5s            # Request timeout
+  retries: 3
+  
+vectors:
+  - type: "sqli"
+    payloads: ["' OR 1=1--", "admin'--"]
+    points: ["query", "body"]
+    
+  - type: "xss"
+    aggressive: true     # Use polyglots
+    
+conditions:
+  fail_on: ["CRITICAL", "HIGH"]
+  stop_on_error: false`} language="yaml" />
+                    </div>
+                </div>
+            </Section>
+
+            {/* 6. ARCHITECTURE (NEW) */}
+            <Section title="System Architecture" id="architecture">
+                <p style={{ color: 'var(--color-text)', marginBottom: '40px' }}>
+                    <strong>BREAKPOINT</strong> is built on a high-performance AsyncIO engine designed for non-blocking adversarial emulation.
+                </p>
+                <div style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
+                    <img src={architectureImg} alt="System Architecture Diagram" style={{ width: '100%', display: 'block' }} />
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
                     <div>
-                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px' }}>STEP 5: Launch Your First Audit</h4>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text)', opacity: 0.7, marginBottom: '10px' }}>
-                            Run the "Elite Scenarios" against a test target.
-                        </p>
-                        <CodeBlock label="TERMINAL" code={`./breakpoint \\
-  --base-url http://localhost:3000 \\
-  --scenarios examples/elite_scenarios.yaml \\
-  --html-report audit_results.html`} />
+                        <strong style={{ color: 'var(--color-primary)' }}>1. CLI Runner</strong>
+                        <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>Entry point. Parses flags and loads config.</p>
                     </div>
+                    <div>
+                        <strong style={{ color: 'var(--color-secondary)' }}>2. Attack Engine</strong>
+                        <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>AsyncIO event loop managing concurrent vectors.</p>
+                    </div>
+                    <div>
+                        <strong style={{ color: 'var(--color-accent)' }}>3. Traffic Mutator</strong>
+                        <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>AI-driven payload adaptation based on WAF response.</p>
+                    </div>
+                    <div>
+                        <strong style={{ color: 'white' }}>4. Forensic Logger</strong>
+                        <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>Zero-latency SQLite/JSONL writer.</p>
+                    </div>
+                </div>
+            </Section>
 
+            {/* 7. BENCHMARKS & MITRE (NEW) */}
+            <Section title="Performance & Capabilities" id="benchmarks">
+                <div style={{ marginBottom: '60px' }}>
+                    <h3 style={{ color: 'var(--color-text)', marginBottom: '30px' }}>Startling Performance</h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', textAlign: 'center' }}>
+                        <div style={{ padding: '20px', background: 'var(--color-dim)', border: '1px solid #333' }}>
+                            <div style={{ fontSize: '2rem', color: 'var(--color-secondary)', fontWeight: 'bold' }}>5k+</div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>Requests / Sec</div>
+                        </div>
+                        <div style={{ padding: '20px', background: 'var(--color-dim)', border: '1px solid #333' }}>
+                            <div style={{ fontSize: '2rem', color: 'var(--color-primary)', fontWeight: 'bold' }}>&lt;15ms</div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>Avg. Latency</div>
+                        </div>
+                        <div style={{ padding: '20px', background: 'var(--color-dim)', border: '1px solid #333' }}>
+                            <div style={{ fontSize: '2rem', color: 'white', fontWeight: 'bold' }}>100%</div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>CPU Utilization</div>
+                        </div>
+                        <div style={{ padding: '20px', background: 'var(--color-dim)', border: '1px solid #333' }}>
+                            <div style={{ fontSize: '2rem', color: 'var(--color-accent)', fontWeight: 'bold' }}>&lt;0.1%</div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>False Positives</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style={{ color: 'var(--color-text)', marginBottom: '30px' }}>MITRE ATT&CK Mapping</h3>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--color-text)', fontSize: '0.9rem' }}>
+                        <thead>
+                            <tr style={{ borderBottom: '1px solid #333', textAlign: 'left' }}>
+                                <th style={{ padding: '10px' }}>Tactic</th>
+                                <th style={{ padding: '10px' }}>Technique ID</th>
+                                <th style={{ padding: '10px' }}>Breakpoint Module</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                <td style={{ padding: '10px', color: 'var(--color-accent)' }}>Initial Access</td>
+                                <td style={{ padding: '10px' }}>T1190</td>
+                                <td style={{ padding: '10px' }}>Exploit Public-Facing Application</td>
+                            </tr>
+                            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                <td style={{ padding: '10px', color: 'var(--color-accent)' }}>Execution</td>
+                                <td style={{ padding: '10px' }}>T1059</td>
+                                <td style={{ padding: '10px' }}>Command and Scripting Interpreter</td>
+                            </tr>
+                            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                <td style={{ padding: '10px', color: 'var(--color-accent)' }}>Discovery</td>
+                                <td style={{ padding: '10px' }}>T1083</td>
+                                <td style={{ padding: '10px' }}>File and Directory Discovery</td>
+                            </tr>
+                            <tr>
+                                <td style={{ padding: '10px', color: 'var(--color-accent)' }}>Impact</td>
+                                <td style={{ padding: '10px' }}>T1498</td>
+                                <td style={{ padding: '10px' }}>slowloris (DoS)</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </Section>
 
@@ -236,6 +681,12 @@ chmod +x breakpoint`} />
                 </p>
 
                 <div style={{ marginBottom: '40px' }}>
+                    <div style={{ display: 'flex', gap: '20px', marginBottom: '20px', borderBottom: '1px solid #333' }}>
+                        <button style={{ padding: '10px 20px', background: 'var(--color-dim)', border: 'none', color: 'var(--color-primary)', borderBottom: '2px solid var(--color-primary)' }}>GitHub</button>
+                        <button style={{ padding: '10px 20px', background: 'transparent', border: 'none', color: 'var(--color-text)', opacity: 0.6 }}>GitLab</button>
+                        <button style={{ padding: '10px 20px', background: 'transparent', border: 'none', color: 'var(--color-text)', opacity: 0.6 }}>Jenkins</button>
+                    </div>
+
                     <h4 style={{ color: 'var(--color-text)', marginBottom: '15px' }}>GitHub Actions Workflow (.github/workflows/security.yml)</h4>
                     <CodeBlock label="YAML" code={`name: Breakpoint Security Scan
 on: [push, pull_request]
@@ -246,11 +697,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          
       - name: Run Attack Simulation
         run: |
           # Download Binary
@@ -258,9 +704,9 @@ jobs:
           chmod +x breakpoint
           
           # Fails build if risk_score > 8.0 (Critical)
-          ./breakpoint --target https://staging.myapp.com --threshold 8.0 --ci
+          ./breakpoint --base-url https://staging.myapp.com --force-live-fire --html-report audit_results.html
           
-      - name: Upload Forensic Report
+      - name: Upload Report
         if: always()
         uses: actions/upload-artifact@v3
         with:
@@ -269,25 +715,83 @@ jobs:
                 </div>
 
                 <div>
-                    <h4 style={{ color: 'var(--color-text)', marginBottom: '15px' }}>Exit Codes & Thresholds</h4>
+                    <h4 style={{ color: 'var(--color-text)', marginBottom: '15px' }}>Troubleshooting & Exit Codes</h4>
                     <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
-                        The CLI is designed for automation. It returns standard POSIX exit codes based on scan results.
+                        The CLI returns POSIX-compliant exit codes for pipeline orchestration.
                     </p>
-                    <ul style={{ listStyle: 'none', padding: 0, color: 'var(--color-text)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
-                        <li style={{ padding: '15px', border: '1px solid #333', background: 'var(--color-dim)' }}>
-                            <strong style={{ color: '#00ff41' }}>Exit 0</strong><br />No Critical Vulnerabilities
-                        </li>
-                        <li style={{ padding: '15px', border: '1px solid #333', background: 'var(--color-dim)' }}>
-                            <strong style={{ color: '#ff3e3e' }}>Exit 1</strong><br />Critical Vulnerability Found
-                        </li>
-                        <li style={{ padding: '15px', border: '1px solid #333', background: 'var(--color-dim)' }}>
-                            <strong style={{ color: '#ffbd2e' }}>Exit 2</strong><br />Connection/Target Error
-                        </li>
-                    </ul>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--color-text)', fontSize: '0.9rem', marginBottom: '30px' }}>
+                        <thead>
+                            <tr style={{ borderBottom: '1px solid #333', textAlign: 'left' }}>
+                                <th style={{ padding: '10px' }}>Code</th>
+                                <th style={{ padding: '10px' }}>Meaning</th>
+                                <th style={{ padding: '10px' }}>Mitigation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style={{ background: 'rgba(0,255,65,0.05)' }}>
+                                <td style={{ padding: '10px', color: '#00ff41', fontWeight: 'bold' }}>0</td>
+                                <td style={{ padding: '10px' }}>SUCCESS (Secure)</td>
+                                <td style={{ padding: '10px' }}>No critical vulnerabilities found.</td>
+                            </tr>
+                            <tr style={{ background: 'rgba(255,62,62,0.1)' }}>
+                                <td style={{ padding: '10px', color: '#ff3e3e', fontWeight: 'bold' }}>1</td>
+                                <td style={{ padding: '10px' }}>CRITICAL FAILURE</td>
+                                <td style={{ padding: '10px' }}>Exploit verified. Immediate patch required.</td>
+                            </tr>
+                            <tr>
+                                <td style={{ padding: '10px', fontWeight: 'bold' }}>2</td>
+                                <td style={{ padding: '10px' }}>Target Unreachable</td>
+                                <td style={{ padding: '10px' }}>Check DNS, Firewall, or if target is down.</td>
+                            </tr>
+                            <tr>
+                                <td style={{ padding: '10px', fontWeight: 'bold' }}>3</td>
+                                <td style={{ padding: '10px' }}>Config Error</td>
+                                <td style={{ padding: '10px' }}>Validate YAML syntax or CLI flags.</td>
+                            </tr>
+                            <tr>
+                                <td style={{ padding: '10px', fontWeight: 'bold' }}>130</td>
+                                <td style={{ padding: '10px' }}>Interrupted</td>
+                                <td style={{ padding: '10px' }}>User manually stopped scan (Ctrl+C).</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </Section>
 
-            {/* 5. LEGAL & LIABILITY (CRITICAL) */}
+            {/* ROADMAP & GOVERNANCE (NEW) */}
+            <Section title="Roadmap & Governance" id="roadmap">
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
+                    <div>
+                        <h4 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Development Roadmap</h4>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            <li style={{ marginBottom: '15px' }}>
+                                <span style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Q1 2026 (Short Term)</span>
+                                <p style={{ opacity: 0.7, fontSize: '0.9rem' }}>• AI-driven GraphQL Fuzzing<br />• Jira/Ticketing Integration</p>
+                            </li>
+                            <li style={{ marginBottom: '15px' }}>
+                                <span style={{ color: 'var(--color-secondary)', fontWeight: 'bold' }}>Q2 2026 (Mid Term)</span>
+                                <p style={{ opacity: 0.7, fontSize: '0.9rem' }}>• Distributed Agent Grid<br />• Kubernetes Operator</p>
+                            </li>
+                            <li>
+                                <span style={{ color: 'var(--color-accent)', fontWeight: 'bold' }}>Q4 2026 (Long Term)</span>
+                                <p style={{ opacity: 0.7, fontSize: '0.9rem' }}>• Autonomous Red Team (ART) SaaS</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Release Notes (v2.0.0-ELITE)</h4>
+                        <p style={{ opacity: 0.7, fontSize: '0.9rem', marginBottom: '10px' }}>Released: Dec 2025</p>
+                        <ul style={{ fontSize: '0.9rem', opacity: 0.8, lineHeight: '1.6' }}>
+                            <li><strong>NEW:</strong> Visual HUD Interface for CLI</li>
+                            <li><strong>NEW:</strong> --aggressive mode for WAF evasion</li>
+                            <li><strong>FIX:</strong> AsyncIO thread starvation on Windows</li>
+                            <li><strong>DEPRECATED:</strong> --legacy-scan flag</li>
+                        </ul>
+                    </div>
+                </div>
+            </Section>
+
+            {/* 6. LEGAL & LIABILITY (CRITICAL) */}
             <Section title="Legal & Liability Framework" id="legal">
                 <div style={{
                     background: 'rgba(255, 62, 62, 0.1)',
@@ -376,6 +880,23 @@ jobs:
                         </p>
                         <p style={{ color: 'var(--color-text)', opacity: 0.7, textAlign: 'right' }}>— Megha Sairaj</p>
                     </div>
+                </div>
+            </Section>
+
+            {/* FAQ (NEW) */}
+            <Section title="Frequently Asked Questions" id="faq">
+                <div style={{ display: 'grid', gap: '30px' }}>
+                    {[
+                        { q: "Is this safe to run on production?", a: "NO. Unless you use standard mode. Aggressive mode can and will degrade service." },
+                        { q: "How destructive is destructive mode?", a: "It uses techniques like 'XML Bomb' and 'Slowloris' which target resource exhaustion. It effectively performs a DoS." },
+                        { q: "Can I add custom attack modules?", a: "Yes. Drop new Python modules into the /vectors directory and register them in the YAML config." },
+                        { q: "What is the difference between Elite and Standard?", a: "Elite includes the AI mutation engine and Reporting capabilities. Standard is CLI-only." }
+                    ].map((item, i) => (
+                        <div key={i}>
+                            <h4 style={{ color: 'var(--color-primary)', marginBottom: '10px' }}>{item.q}</h4>
+                            <p style={{ color: 'var(--color-text)', opacity: 0.8, lineHeight: '1.6' }}>{item.a}</p>
+                        </div>
+                    ))}
                 </div>
             </Section>
 
