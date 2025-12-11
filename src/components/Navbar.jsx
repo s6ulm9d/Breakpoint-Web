@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 const navItems = [
     { label: 'Home', id: 'hero' },
     { label: 'Philosophy', id: 'about' },
+    { label: 'Quick Start', id: 'quick-start' },
     { label: 'Capabilities', id: 'capabilities' },
     { label: 'Architecture', id: 'architecture' },
-    { label: 'Vs Others', id: 'comparison' },
-    { label: 'Setup', id: 'setup' },
-    { label: 'Contact', id: 'contact' }
+    { label: 'Scenarios', id: 'scenarios' },
+    { label: 'Roadmap', id: 'roadmap' }
 ];
 
 export default function Navbar({ isDark, toggleTheme }) {
