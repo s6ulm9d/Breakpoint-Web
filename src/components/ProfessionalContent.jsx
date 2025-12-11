@@ -174,22 +174,17 @@ class BreakpointEngine:
                     <div style={{ flex: 1, minWidth: '300px' }}>
                         <h3 style={{ color: 'var(--color-secondary)', marginBottom: '20px' }}>⚡ Get Running in 2 Minutes</h3>
                         <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
-                            Prerequisites: <strong>Python 3.8+</strong> or <strong>Docker</strong>.
-                            No API keys required for local testing.
+                            Prerequisites: <strong>None</strong>. The engine is self-contained.
+                            No API keys required.
                         </p>
 
                         <div style={{ marginBottom: '25px' }}>
-                            <strong style={{ display: 'block', color: 'var(--color-text)', marginBottom: '10px' }}>1. Install via One-Liner</strong>
-                            <CodeBlock label="BASH" code={`curl -sL https://github.com/s6ulm9d/Breakpoint/raw/main/install.sh | bash`} />
-                        </div>
-
-                        <div style={{ marginBottom: '25px' }}>
-                            <strong style={{ display: 'block', color: 'var(--color-text)', marginBottom: '10px' }}>2. Initialize & Run</strong>
-                            <CodeBlock label="BASH" code={`breakpoint init\nbreakpoint --base-url http://localhost:3000`} />
+                            <strong style={{ display: 'block', color: 'var(--color-text)', marginBottom: '10px' }}>1. Zero-Config Run</strong>
+                            <CodeBlock label="BASH / POWERSHELL" code={`breakpoint http://localhost:3000`} />
                         </div>
 
                         <p style={{ fontSize: '0.9rem', color: 'var(--color-primary)' }}>
-                            &gt; Expected Output: HTML Report generated at <code>./audit_results.html</code>
+                            &gt; Engine will Auto-Initialize, generate aggressive profile, and launch report generation.
                         </p>
                     </div>
                 </div>
@@ -207,17 +202,17 @@ class BreakpointEngine:
                     {/* END USERS SECTION */}
                     <div>
                         <h3 style={{ color: 'var(--color-primary)', borderBottom: '1px solid var(--color-primary)', paddingBottom: '10px', marginBottom: '30px' }}>
-                            📦 For End Users (Binary Release)
+                            📦 For End Users (Zero Config)
                         </h3>
                         <p style={{ color: 'var(--color-text)', opacity: 0.9, marginBottom: '30px' }}>
-                            The recommended installation method for security auditors and penetration testers who simply want to run the tool.
+                            The recommended installation method. We now provide a dedicated installer that handles PATH configuration automatically.
                         </p>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
                             <div>
-                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>1. Download the Latest Release</h4>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>1. Download the Installer</h4>
                                 <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
-                                    Navigate to the official Releases page and download the executable binary corresponding to your operating system.
+                                    Navigate to the official Releases page and download the installer for your OS.
                                 </p>
                                 <motion.a
                                     href="https://github.com/s6ulm9d/Breakpoint/releases/latest"
@@ -239,72 +234,44 @@ class BreakpointEngine:
                                         marginBottom: '20px'
                                     }}
                                 >
-                                    <span style={{ fontSize: '1.2rem' }}>⬇</span> DOWNLOAD LATEST BINARY
+                                    <span style={{ fontSize: '1.2rem' }}>⬇</span> DOWNLOAD INSTALLER
                                 </motion.a>
                                 <ul style={{ color: 'var(--color-text)', opacity: 0.8, listStyle: 'none', paddingLeft: '15px', borderLeft: '3px solid var(--color-dim)' }}>
-                                    <li style={{ marginBottom: '5px' }}><strong>Current Version:</strong> 2.0.0-ELITE</li>
-                                    <li><strong>File:</strong> breakpoint_windows.exe</li>
+                                    <li style={{ marginBottom: '5px' }}><strong>Current Version:</strong> 2.2.0-ELITE</li>
+                                    <li><strong>Windows:</strong> breakpoint-installer.exe</li>
+                                    <li><strong>Linux/Mac:</strong> breakpoint (binary)</li>
                                 </ul>
                             </div>
 
                             <div>
-                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>2. System Placement (Windows)</h4>
-                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '15px' }}>
-                                    To ensure global access and professional organization, we will install the binary into the system's Program Files directory.
-                                </p>
-                                <div style={{ background: 'rgba(255, 189, 46, 0.1)', borderLeft: '4px solid #ffbd2e', padding: '15px', marginBottom: '15px' }}>
-                                    <strong style={{ color: '#ffbd2e' }}>⚠️ Note:</strong> <span style={{ color: 'var(--color-text)' }}>You will need Administrator privileges for the following steps.</span>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>2. Installation</h4>
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
+                                    <div style={{ background: 'var(--color-dim)', padding: '20px', border: '1px solid #333' }}>
+                                        <strong style={{ display: 'block', color: 'var(--color-primary)', marginBottom: '10px' }}>WINDOWS</strong>
+                                        <ol style={{ color: 'var(--color-text)', opacity: 0.8, paddingLeft: '20px', lineHeight: '1.6' }}>
+                                            <li>Run <code>breakpoint-installer.exe</code>.</li>
+                                            <li>Accept the license terms.</li>
+                                            <li>Click <strong>Install</strong>.</li>
+                                            <li>The tool is automatically added to your System PATH.</li>
+                                        </ol>
+                                    </div>
+                                    <div style={{ background: 'var(--color-dim)', padding: '20px', border: '1px solid #333' }}>
+                                        <strong style={{ display: 'block', color: 'var(--color-primary)', marginBottom: '10px' }}>LINUX / MACOS</strong>
+                                        <ol style={{ color: 'var(--color-text)', opacity: 0.8, paddingLeft: '20px', lineHeight: '1.6' }}>
+                                            <li>Download the binary.</li>
+                                            <li>Make it executable: <code>chmod +x breakpoint</code></li>
+                                            <li>Run it: <code>./breakpoint</code> (or move to /usr/local/bin).</li>
+                                        </ol>
+                                    </div>
                                 </div>
-                                <ol style={{ color: 'var(--color-text)', opacity: 0.8, paddingLeft: '20px', lineHeight: '1.6' }}>
-                                    <li>Open <strong>File Explorer</strong>.</li>
-                                    <li>Navigate to <code>C:\Program Files</code>.</li>
-                                    <li>Right-click in an empty space, select <strong>New &gt; Folder</strong>, and name it: <code>BreakPoint</code></li>
-                                </ol>
                             </div>
 
                             <div>
-                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>3. Binary Setup</h4>
-                                <ol style={{ color: 'var(--color-text)', opacity: 0.8, paddingLeft: '20px', lineHeight: '1.6' }}>
-                                    <li>Locate your downloaded file (<code>breakpoint_windows.exe</code>).</li>
-                                    <li>Move this file into the newly created folder: <code>C:\Program Files\BreakPoint\</code>.</li>
-                                    <li><strong>Rename</strong> the file from <code>breakpoint_windows.exe</code> to: <code>breakpoint.exe</code></li>
-                                </ol>
-                            </div>
-
-                            <div>
-                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>4. Environment Configuration</h4>
+                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>3. Verification</h4>
                                 <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '15px' }}>
-                                    To run BREAKPOINT from any command line interface, you must update your system's PATH variable.
-                                </p>
-                                <ol style={{ color: 'var(--color-text)', opacity: 0.8, paddingLeft: '20px', lineHeight: '1.6' }}>
-                                    <li>Press <code>Win + S</code> to open Windows Search.</li>
-                                    <li>Type <strong>"Edit the system environment variables"</strong> and press Enter.</li>
-                                    <li>In the <strong>System Properties</strong> window, click the <strong>Environment Variables...</strong> button.</li>
-                                    <li>Under the <strong>System variables</strong> section (bottom half), locate the variable named <code>Path</code> and select it.</li>
-                                    <li>Click <strong>Edit...</strong>.</li>
-                                    <li>Click <strong>New</strong> on the right side.</li>
-                                    <li>Paste the installation path: <code>C:\Program Files\BreakPoint</code></li>
-                                    <li>Click <strong>OK</strong> on all open windows to save your changes.</li>
-                                </ol>
-                            </div>
-
-                            <div>
-                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>5. Verification</h4>
-                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '15px' }}>
-                                    Open a <strong>new</strong> Command Prompt (cmd) or PowerShell window and run:
+                                    Open a <strong>new</strong> terminal window and verify the installation:
                                 </p>
                                 <CodeBlock label="TERMINAL" code={`breakpoint --version`} />
-                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginTop: '10px' }}>
-                                    You should see the BREAKPOINT version information, confirming a successful installation.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 style={{ color: 'var(--color-secondary)', marginBottom: '10px' }}>6. Common Usage</h4>
-                                <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '15px' }}>
-                                    Run a quick scan against a target:
-                                </p>
-                                <CodeBlock label="TERMINAL" code={`breakpoint --base-url http://localhost:3000`} />
                             </div>
                         </div>
                     </div>

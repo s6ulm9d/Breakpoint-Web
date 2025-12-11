@@ -96,7 +96,7 @@ export default function App() {
           <div className="container" style={{ textAlign: 'center', color: 'var(--color-text)', opacity: 0.6, fontSize: '0.8rem' }}>
             <p>&copy; 2025 SOULMAD INDUSTRIES. BUILT FOR DEFENSE.</p>
             <p style={{ marginTop: '10px' }}>
-              <a href="https://github.com/s6ulm9d/Breakpoint" style={{ color: 'var(--color-text)', marginRight: '15px', textDecoration: 'none' }}>GITHUB</a>
+              <a href="https://github.com/s6ulm9d" style={{ color: 'var(--color-text)', marginRight: '15px', textDecoration: 'none' }}>GITHUB</a>
               <a href="https://www.linkedin.com/in/sairaj-megha-0110b9392/" style={{ color: 'var(--color-text)', textDecoration: 'none' }}>LINKEDIN</a>
             </p>
           </div>
