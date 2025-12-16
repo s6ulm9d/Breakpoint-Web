@@ -794,7 +794,7 @@ jobs:
 
                     <div style={{ background: 'var(--color-dim)', padding: '25px', border: '1px solid rgba(128,128,128,0.2)', marginBottom: '30px' }}>
                         <p style={{ color: 'var(--color-text)', opacity: 0.9, fontSize: '1.1rem', fontStyle: 'italic', lineHeight: '1.8' }}>
-                            "The creator, <strong>Megha Sairaj</strong> (and the <strong>Soulmad</strong> entity), expressly disclaims all liability for any direct, indirect, incidental, or consequential damages resulting from the use or misuse of this software.
+                            "The creators, <strong>Megha Sairaj & Gantela Sai Sharanya</strong> (and the <strong>Soulmad</strong> entity), expressly disclaims all liability for any direct, indirect, incidental, or consequential damages resulting from the use or misuse of this software.
                             Users assume full legal responsibility for any actions taken with this tool."
                         </p>
                     </div>

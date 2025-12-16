@@ -101,7 +101,7 @@ export default function Hero() {
                     transition={{ delay: 0.7, duration: 1 }}
                     style={{ fontSize: '1rem', marginBottom: '40px', color: 'var(--color-primary)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '2px' }}
                 >
-                    Developed by Megha Sairaj
+                    Developed by Megha Sairaj & Gantela Sai Sharanya
                 </motion.p>
 
                 <motion.div
