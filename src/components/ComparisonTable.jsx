@@ -6,6 +6,7 @@ const comparisonData = [
     { feature: "Active Exploitation", breakpoint: "YES (Weaponized)", others: "NO (Passive/Scanner)" },
     { feature: "Traffic Profiling", breakpoint: "Adversarial (WAF Evasion)", others: "Standard (Blocked)" },
     { feature: "Payloads", breakpoint: "Context-Aware & Mutating", others: "Static Databases" },
+    { feature: "RSC / Next.js Support", breakpoint: "Native (Action Forgery)", others: "None (Blind)" },
     { feature: "CI/CD Output", breakpoint: "Pass/Fail + Financial Impact", others: "PDF Report" },
     { feature: "False Positives", breakpoint: "Near Zero (Verified Exploits)", others: "High (Heuristics)" },
     { feature: "Performance", breakpoint: "Async/Parallel (Aggressive)", others: "Sequential (Slow)" },

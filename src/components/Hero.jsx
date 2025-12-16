@@ -76,7 +76,6 @@ export default function Hero() {
                         fontSize: 'min(5rem, 15vw)',
                         fontWeight: '900',
                         marginBottom: '20px',
-                        color: 'var(--color-primary)', // Using primary color for title in both modes usually looks better, or use text
                         color: 'white', // Keeping white for now as per design, but text-shadow handles the color.
                         textShadow: '0 0 30px rgba(255, 62, 62, 0.6)',
                         letterSpacing: '-2px'

@@ -70,7 +70,7 @@ export default function ProfessionalContent() {
             {/* 1. MISSION STATEMENT */}
             <Section title="The Philosophy: Break It To Fix It" id="about">
                 <p style={{ maxWidth: '900px', marginBottom: '30px', fontSize: '1.25rem', color: 'var(--color-text)' }}>
-                    <strong>BREAKPOINT</strong> is not a vulnerability scanner; it is a <strong>Weaponized Resilience Engine</strong>.
+                    <strong>BREAKPOINT</strong> is not a vulnerability scanner; it is a <strong>Red-Team Accelerator</strong>.
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '30px', marginBottom: '30px' }}>
                     <div>
@@ -109,6 +109,13 @@ export default function ProfessionalContent() {
                         { name: "LDAP / XPath", desc: "Directory service manipulation and XML structure queries." }
                     ]} />
 
+                    <FeatureList title="NEXT.JS / RSC ARSENAL (NEW)" features={[
+                        { name: "Server Action Forgery", desc: "Bypassing auth by fuzzing Next-Action headers to invoke unexposed server functions." },
+                        { name: "Async Context Bleed", desc: "Detecting data leakage between users during high-concurrency RSC rendering." },
+                        { name: "RSC SSRF", desc: "Injecting cloud metadata URLs into Image Optimization endpoints (_next/image)." },
+                        { name: "Hydration Collapse", desc: "Forcing server-side rendering of admin routes via Router-State-Tree manipulation." }
+                    ]} />
+
                     <FeatureList title="DENIAL OF SERVICE (WARFARE)" features={[
                         { name: "XML Bomb (Billion Laughs)", desc: "Recursive entity expansion to exhaust server RAM." },
                         { name: "Slowloris", desc: "Partial HTTP requests to exhaust thread pools/connections." },
@@ -117,11 +124,11 @@ export default function ProfessionalContent() {
                     ]} />
 
                     <FeatureList title="AUTHENTICATION & LOGIC FLAWS" features={[
-                        { name: "JWT Attacks", desc: "Forging Admin tokens via 'None' algorithm, weak HMAC secrets, and key confusion (RSA->HMAC)." },
-                        { name: "IDOR / BOLA", desc: "Broken Object Level Authorization. Iterates violently through user IDs to find data leaks." },
-                        { name: "Race Conditions", desc: "Exploiting Time-of-Check/Time-of-Use (TOCTOU) for double-spending or inventory bypass." },
-                        { name: "SSRF (Cloud)", desc: "Targeting AWS IMDSv2 (169.254.169.254), GCP Metadata, and internal K8s endpoints." },
-                        { name: "Prototype Pollution", desc: "Injecting properties into Object.prototype to alter application logic globally." }
+                        { name: "JWT Attacks", desc: "Forging Admin tokens via 'None' algorithm, weak HMAC secrets, and key confusion." },
+                        { name: "IDOR / BOLA", desc: "Broken Object Level Authorization. Iterates violently through user IDs." },
+                        { name: "Race Conditions", desc: "Exploiting Time-of-Check/Time-of-Use (TOCTOU) for double-spending." },
+                        { name: "SSRF (Cloud)", desc: "Targeting AWS IMDSv2, GCP Metadata, and internal K8s endpoints." },
+                        { name: "Prototype Pollution", desc: "Injecting properties into Object.prototype to alter application logic." }
                     ]} />
                 </div>
             </Section>
@@ -237,7 +244,7 @@ class BreakpointEngine:
                                     <span style={{ fontSize: '1.2rem' }}>⬇</span> DOWNLOAD INSTALLER
                                 </motion.a>
                                 <ul style={{ color: 'var(--color-text)', opacity: 0.8, listStyle: 'none', paddingLeft: '15px', borderLeft: '3px solid var(--color-dim)' }}>
-                                    <li style={{ marginBottom: '5px' }}><strong>Current Version:</strong> 2.2.0-ELITE</li>
+                                    <li style={{ marginBottom: '5px' }}><strong>Current Version:</strong> 2.5.2-ELITE</li>
                                     <li><strong>Windows:</strong> breakpoint-installer.exe</li>
                                     <li><strong>Linux/Mac:</strong> breakpoint (binary)</li>
                                 </ul>
@@ -746,13 +753,13 @@ jobs:
                         </ul>
                     </div>
                     <div>
-                        <h4 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Release Notes (v2.0.0-ELITE)</h4>
-                        <p style={{ opacity: 0.7, fontSize: '0.9rem', marginBottom: '10px' }}>Released: Dec 2025</p>
+                        <h4 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Release Notes (v2.5.2-ELITE)</h4>
+                        <p style={{ opacity: 0.7, fontSize: '0.9rem', marginBottom: '10px' }}>Released: Current Build</p>
                         <ul style={{ fontSize: '0.9rem', opacity: 0.8, lineHeight: '1.6' }}>
-                            <li><strong>NEW:</strong> Visual HUD Interface for CLI</li>
-                            <li><strong>NEW:</strong> --aggressive mode for WAF evasion</li>
-                            <li><strong>FIX:</strong> AsyncIO thread starvation on Windows</li>
-                            <li><strong>DEPRECATED:</strong> --legacy-scan flag</li>
+                            <li><strong>NEW:</strong> Next.js / RSC Attack Arsenal</li>
+                            <li><strong>NEW:</strong> Zero-Config Windows Installer</li>
+                            <li><strong>NEW:</strong> --aggressive Destructive Mode (DROP TABLE)</li>
+                            <li><strong>CORE:</strong> 18+ Attack Modules Enabled</li>
                         </ul>
                     </div>
                 </div>
