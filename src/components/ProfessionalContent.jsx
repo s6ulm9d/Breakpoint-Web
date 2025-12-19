@@ -118,9 +118,10 @@ export default function ProfessionalContent() {
 
                     <FeatureList title="DENIAL OF SERVICE (WARFARE)" features={[
                         { name: "XML Bomb (Billion Laughs)", desc: "Recursive entity expansion to exhaust server RAM." },
-                        { name: "Slowloris", desc: "Partial HTTP requests to exhaust thread pools/connections." },
+                        { name: "JSON Bomb (Deep Nesting)", desc: "Exponential payload expansion to crash parsers." },
                         { name: "ReDoS", desc: "Catastrophic backtracking in Regex engines." },
-                        { name: "HTTP Desync", desc: "Request Smuggling via Transfer-Encoding: chunked CL.TE/TE.CL." }
+                        { name: "Slowloris", desc: "Partial HTTP requests to exhaust thread pools/connections." },
+                        { name: "Traffic Spike", desc: "High-volume request flooding to test scaling limits." }
                     ]} />
 
                     <FeatureList title="AUTHENTICATION & LOGIC FLAWS" features={[
