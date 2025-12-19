@@ -86,6 +86,23 @@ export default function Hero() {
                     </span>
                 </motion.div>
 
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 1 }}
+                    style={{
+                        fontSize: 'min(1.8rem, 6vw)',
+                        fontWeight: '700',
+                        marginBottom: '20px',
+                        color: 'var(--color-text)',
+                        textAlign: 'center',
+                        fontFamily: 'var(--font-mono)',
+                        opacity: 0.9
+                    }}
+                >
+                    Automated Security Testing Tool for Modern Web Applications
+                </motion.h1>
+
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
