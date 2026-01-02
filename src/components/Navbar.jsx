@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
-
-const navItems = [
-    { label: 'Home', id: 'hero' },
-    { label: 'Philosophy', id: 'about' },
-    { label: 'Quick Start', id: 'quick-start' },
-    { label: 'Capabilities', id: 'capabilities' },
-    { label: 'Architecture', id: 'architecture' },
-    { label: 'Scenarios', id: 'scenarios' },
-    { label: 'Roadmap', id: 'roadmap' }
-];
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar({ isDark, toggleTheme }) {
     const [scrolled, setScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const navItems = [
+        { label: 'Platform', id: 'capabilities' },
+        { label: 'Pricing', path: '/pricing' },
+        { label: 'Docs', id: 'architecture' },
+    ];
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
         };
         const handleResize = () => {
-            // Close menu if switching to desktop view
             if (window.innerWidth >= 850) setIsMenuOpen(false);
         };
 
@@ -33,12 +32,16 @@ export default function Navbar({ isDark, toggleTheme }) {
     }, []);
 
     const scrollTo = (id) => {
-        setIsMenuOpen(false); // Close menu on click
+        setIsMenuOpen(false);
         const el = document.getElementById(id);
         if (el) {
             el.scrollIntoView({ behavior: 'smooth' });
         } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            navigate('/');
+            setTimeout(() => {
+                const homeEl = document.getElementById(id);
+                if (homeEl) homeEl.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
     };
 
@@ -56,8 +59,8 @@ export default function Navbar({ isDark, toggleTheme }) {
             borderBottom: scrolled || isMenuOpen ? '1px solid #222' : 'none'
         }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                <Link
+                    to="/"
                     style={{
                         fontFamily: 'var(--font-mono)',
                         fontWeight: 'bold',
@@ -67,39 +70,87 @@ export default function Navbar({ isDark, toggleTheme }) {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '10px',
-                        zIndex: 102
+                        zIndex: 102,
+                        textDecoration: 'none'
                     }}
                 >
                     <span style={{ color: 'var(--color-primary)' }}>💀</span> BREAKPOINT
-                </div>
+                </Link>
 
-                {/* Desktop Menu - Controlled by CSS */}
+                {/* Desktop Menu */}
                 <div className="desktop-only" style={{ alignItems: 'center', gap: '30px' }}>
                     <ul style={{ display: 'flex', gap: '30px', listStyle: 'none', margin: 0, padding: 0 }}>
                         {navItems.map(item => (
                             <li key={item.label}>
-                                <button
-                                    onClick={() => scrollTo(item.id)}
-                                    style={{
-                                        background: 'none',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                        color: isDark ? '#ccc' : '#444',
-                                        fontSize: '0.9rem',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '1px',
-                                        transition: 'color 0.2s',
-                                        padding: '5px',
-                                        fontFamily: 'inherit'
-                                    }}
-                                    onMouseEnter={(e) => e.target.style.color = 'var(--color-primary)'}
-                                    onMouseLeave={(e) => e.target.style.color = isDark ? '#ccc' : '#444'}
-                                >
-                                    {item.label}
-                                </button>
+                                {item.path ? (
+                                    <Link
+                                        to={item.path}
+                                        style={{
+                                            color: isDark ? '#ccc' : '#444',
+                                            fontSize: '0.9rem',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                            textDecoration: 'none',
+                                            fontFamily: 'var(--font-mono)'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.color = 'var(--color-primary)'}
+                                        onMouseLeave={(e) => e.target.style.color = isDark ? '#ccc' : '#444'}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                ) : (
+                                    <button
+                                        onClick={() => scrollTo(item.id)}
+                                        style={{
+                                            background: 'none',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                            color: isDark ? '#ccc' : '#444',
+                                            fontSize: '0.9rem',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                            transition: 'color 0.2s',
+                                            padding: '5px',
+                                            fontFamily: 'inherit'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.color = 'var(--color-primary)'}
+                                        onMouseLeave={(e) => e.target.style.color = isDark ? '#ccc' : '#444'}
+                                    >
+                                        {item.label}
+                                    </button>
+                                )}
                             </li>
                         ))}
                     </ul>
+
+                    {user ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', borderLeft: '1px solid #333', paddingLeft: '30px' }}>
+                            <Link to="/dashboard" style={{
+                                color: 'var(--color-primary)',
+                                fontSize: '0.8rem',
+                                textTransform: 'uppercase',
+                                fontWeight: 'bold',
+                                textDecoration: 'none',
+                                letterSpacing: '1px'
+                            }}>
+                                Dashboard
+                            </Link>
+                            <div style={{
+                                fontSize: '0.7rem',
+                                padding: '4px 10px',
+                                background: 'rgba(255, 62, 62, 0.1)',
+                                border: '1px solid var(--color-primary)',
+                                color: 'var(--color-primary)',
+                                borderRadius: '4px'
+                            }}>
+                                {user.tier} TIER
+                            </div>
+                        </div>
+                    ) : (
+                        <Link to="/login" className="btn-primary" style={{ textDecoration: 'none', padding: '8px 20px', fontSize: '0.8rem' }}>
+                            Sign In
+                        </Link>
+                    )}
 
                     <button
                         onClick={toggleTheme}
@@ -118,7 +169,7 @@ export default function Navbar({ isDark, toggleTheme }) {
                     </button>
                 </div>
 
-                {/* Mobile Menu Button - Controlled by CSS */}
+                {/* Mobile Menu Button */}
                 <div className="mobile-only" style={{ alignItems: 'center', gap: '20px', zIndex: 102 }}>
                     <button
                         onClick={toggleTheme}
@@ -154,7 +205,7 @@ export default function Navbar({ isDark, toggleTheme }) {
                 </div>
             </div>
 
-            {/* Mobile Menu Overlay - Controlled by CSS (mobile-only class) */}
+            {/* Mobile Menu Overlay */}
             <div className="mobile-only" style={{
                 position: 'fixed',
                 top: 0,
@@ -162,7 +213,7 @@ export default function Navbar({ isDark, toggleTheme }) {
                 width: '100%',
                 height: '100vh',
                 background: isDark ? 'rgba(5,5,5,0.98)' : 'rgba(255,255,255,0.98)',
-                flexDirection: 'column', // flex is set by class but direction needs override
+                flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
                 transition: 'transform 0.3s ease-in-out',
@@ -172,26 +223,58 @@ export default function Navbar({ isDark, toggleTheme }) {
                 <ul style={{ listStyle: 'none', padding: 0, textAlign: 'center' }}>
                     {navItems.map(item => (
                         <li key={item.label} style={{ marginBottom: '30px' }}>
-                            <button
-                                onClick={() => scrollTo(item.id)}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    color: isDark ? 'white' : 'black',
-                                    fontSize: '1.5rem',
-                                    fontWeight: 'bold',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '2px',
-                                    fontFamily: 'var(--font-mono)'
-                                }}
-                            >
-                                {item.label}
-                            </button>
+                            {item.path ? (
+                                <Link
+                                    to={item.path}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    style={{
+                                        color: isDark ? 'white' : 'black',
+                                        fontSize: '1.5rem',
+                                        fontWeight: 'bold',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '2px',
+                                        fontFamily: 'var(--font-mono)',
+                                        textDecoration: 'none'
+                                    }}
+                                >
+                                    {item.label}
+                                </Link>
+                            ) : (
+                                <button
+                                    onClick={() => scrollTo(item.id)}
+                                    style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        color: isDark ? 'white' : 'black',
+                                        fontSize: '1.5rem',
+                                        fontWeight: 'bold',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '2px',
+                                        fontFamily: 'var(--font-mono)'
+                                    }}
+                                >
+                                    {item.label}
+                                </button>
+                            )}
                         </li>
                     ))}
+                    {user ? (
+                        <li style={{ marginTop: '20px' }}>
+                            <Link to="/dashboard" onClick={() => setIsMenuOpen(false)} style={{ color: 'var(--color-primary)', textDecoration: 'none', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                                COMMAND CENTER
+                            </Link>
+                        </li>
+                    ) : (
+                        <li style={{ marginTop: '20px' }}>
+                            <Link to="/login" onClick={() => setIsMenuOpen(false)} style={{ color: 'var(--color-primary)', textDecoration: 'none', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                                SIGN IN
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </div>
         </nav>
     );
 }
+

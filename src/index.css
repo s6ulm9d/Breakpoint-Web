@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
 :root {
   --color-bg: #050505;
   --color-text: #e0e0e0;
@@ -8,7 +10,7 @@
   --color-accent: #00d8ff;
   /* Cyber Blue */
   --color-dim: #0a0a0a;
-  --font-mono: 'Courier New', Courier, monospace;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --particle-color: #ff3e3e;
 }

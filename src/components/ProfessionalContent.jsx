@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 import aggressiveImg from '../assets/--aggressive.png';
 import baseUrlImg from '../assets/--base-url.png';
@@ -17,28 +18,31 @@ import architectureImg from '../assets/architecture_diagram.png'; // Generated A
 import CodeBlock from './ui/CodeBlock';
 
 const Section = ({ title, children, id }) => (
-    <section id={id} style={{ padding: '80px 0', borderBottom: '1px solid rgba(128,128,128,0.1)' }}>
-        <div className="container">
-            <motion.h2
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                style={{
-                    fontSize: '2.5rem',
-                    marginBottom: '50px',
-                    color: 'var(--color-primary)',
-                    borderLeft: '5px solid var(--color-primary)',
-                    paddingLeft: '20px',
-                    textTransform: 'uppercase'
-                }}
+    <section id={id} style={{ padding: '120px 0', borderBottom: '1px solid rgba(128,128,128,0.1)' }}>
+        <div className="container" style={{ maxWidth: '1000px' }}>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
             >
-                {title}
-            </motion.h2>
+                <h2 style={{
+                    fontSize: '2rem',
+                    marginBottom: '60px',
+                    color: 'var(--color-primary)',
+                    letterSpacing: '-0.5px',
+                    fontFamily: 'var(--font-mono)',
+                    borderLeft: '4px solid var(--color-primary)',
+                    paddingLeft: '20px',
+                    lineHeight: '1.2'
+                }}>
+                    {title}
+                </h2>
+            </motion.div>
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                style={{ fontSize: '1.05rem', lineHeight: '1.8', color: 'var(--color-text)' }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                style={{ fontSize: '1.1rem', lineHeight: '1.7', color: 'var(--color-text)' }}
             >
                 {children}
             </motion.div>
@@ -47,19 +51,30 @@ const Section = ({ title, children, id }) => (
 );
 
 const FeatureList = ({ title, features }) => (
-    <div style={{ marginBottom: '30px' }}>
-        <h4 style={{ color: 'var(--color-text)', marginBottom: '15px', borderBottom: '1px solid rgba(128,128,128,0.2)', paddingBottom: '10px' }}>{title}</h4>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+    <div style={{ marginBottom: '50px' }}>
+        <h4 style={{
+            color: 'var(--color-text)',
+            marginBottom: '25px',
+            borderBottom: '1px solid rgba(128,128,128,0.2)',
+            paddingBottom: '15px',
+            fontSize: '1.2rem',
+            letterSpacing: '1px'
+        }}>{title}</h4>
+        <div style={{ display: 'grid', gap: '20px' }}>
             {features.map((f, i) => (
-                <li key={i} style={{ marginBottom: '12px', display: 'flex', alignItems: 'flex-start' }}>
-                    <span style={{ color: 'var(--color-secondary)', marginRight: '10px' }}>➜</span>
-                    <div>
-                        <strong style={{ color: 'var(--color-text)' }}>{f.name}:</strong>
-                        <span style={{ color: 'var(--color-text)', opacity: 0.7, marginLeft: '8px' }}>{f.desc}</span>
+                <div key={i} style={{
+                    padding: '20px',
+                    background: 'rgba(255,255,255,0.03)',
+                    borderLeft: '2px solid var(--color-dim)'
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '8px' }}>
+                        <span style={{ color: 'var(--color-secondary)', marginRight: '10px', fontSize: '0.8rem' }}>➜</span>
+                        <strong style={{ color: 'var(--color-text)', fontSize: '1.1rem' }}>{f.name}</strong>
                     </div>
-                </li>
+                    <p style={{ color: 'var(--color-text)', opacity: 0.7, margin: 0, fontSize: '0.95rem', paddingLeft: '24px' }}>{f.desc}</p>
+                </div>
             ))}
-        </ul>
+        </div>
     </div>
 );
 
@@ -68,71 +83,108 @@ export default function ProfessionalContent() {
         <div style={{ background: 'var(--color-bg)', transition: 'background 0.3s' }}>
 
             {/* 1. MISSION STATEMENT */}
-            <Section title="The Philosophy: Break It To Fix It" id="about">
+            <Section title="The Strategic Logic: Proactive Validation" id="about">
                 <p style={{ maxWidth: '900px', marginBottom: '30px', fontSize: '1.25rem', color: 'var(--color-text)' }}>
-                    <strong>BREAKPOINT</strong> is not a vulnerability scanner; it is a <strong>Red-Team Accelerator</strong>.
+                    <strong>BREAKPOINT</strong> is the industry's first <strong>Unified Security Orchestration</strong> platform designed for automated offensive research.
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '30px', marginBottom: '30px' }}>
                     <div>
                         <p style={{ color: 'var(--color-text)', opacity: 0.9 }}>
-                            Traditional tools (OWASP ZAP, Burp) are passive or semi-passive. They suggest something <em>might</em> be wrong.
-                            Breakpoint takes the adversarial role of an "Internal Threat" or "Compromised User" to <strong>actively exploit</strong> those weaknesses.
+                            Traditional scanners provide theoretical risk. Breakpoint provides <strong>empirical proof</strong>. By shifting from passive detection to active validation, we eliminate the ambiguity of "potential" vulnerabilities.
                         </p>
                         <p style={{ color: 'var(--color-text)', opacity: 0.9 }}>
-                            We operate on a simple truth: <strong>Production is already broken. You just haven't proved it yet.</strong>
-                            Soft assertions in tests provide a false sense of security. Only hostile conditions reveal the truth.
+                            Our core mission is to empower red teams and security researchers with a single, high-performance binary that scales across any environment—from local development to global cloud infrastructure.
                         </p>
                     </div>
-                    <div style={{ background: 'var(--color-dim)', padding: '20px', borderLeft: '3px solid var(--color-accent)' }}>
-                        <h4 style={{ color: 'var(--color-accent)', marginBottom: '10px' }}>Use Cases</h4>
-                        <ul style={{ listStyle: 'none', padding: 0 }}>
-                            <li style={{ marginBottom: '10px' }}>✓ <strong>Chaos Engineering</strong>: Verify system behavior under DoS/Stress.</li>
-                            <li style={{ marginBottom: '10px' }}>✓ <strong>CI/CD Gating</strong>: "If High Severity -&gt; Build Failed".</li>
-                            <li style={{ marginBottom: '10px' }}>✓ <strong>Blue Team Training</strong>: Generate real attack logs for SIEM tuning.</li>
-                            <li>✓ <strong>Liability Calculation</strong>: Estimate financial loss from potential breaches.</li>
+                    <div style={{ background: 'var(--color-dim)', padding: '25px', borderLeft: '3px solid var(--color-primary)', borderRadius: '0 8px 8px 0' }}>
+                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '15px', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Enterprise Readiness</h4>
+                        <ul style={{ listStyle: 'none', padding: 0, fontSize: '0.95rem' }}>
+                            <li style={{ marginBottom: '12px', display: 'flex', gap: '10px' }}>
+                                <span style={{ color: 'var(--color-primary)' }}>●</span>
+                                <div><strong>Automated Validation</strong>: Real-time confirmation of security controls.</div>
+                            </li>
+                            <li style={{ marginBottom: '12px', display: 'flex', gap: '10px' }}>
+                                <span style={{ color: 'var(--color-primary)' }}>●</span>
+                                <div><strong>Compliance Integration</strong>: Native SARIF and JSONL exports for SOC/SIEM.</div>
+                            </li>
+                            <li style={{ display: 'flex', gap: '10px' }}>
+                                <span style={{ color: 'var(--color-primary)' }}>●</span>
+                                <div><strong>CI/CD Resilience</strong>: Automated gating for secure software delivery.</div>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </Section>
 
-            {/* 2. THE DEATH SUITE */}
-            <Section title="Capabilities: The Death Suite" id="capabilities">
-                <p style={{ marginBottom: '30px', color: 'var(--color-text)', opacity: 0.9 }}>
-                    The engine forces the target through a gauntlet of modern attack vectors, categorized by impact.
-                </p>
+            {/* 2. THE UNIFIED ATTACK ARSENAL */}
+            <Section title="The Unified Attack Arsenal" id="capabilities">
+                <div style={{ marginBottom: '40px', padding: '20px', background: 'rgba(255, 62, 62, 0.05)', border: '1px solid rgba(255, 62, 62, 0.2)', borderRadius: '8px' }}>
+                    <p style={{ margin: 0, color: 'var(--color-primary)', fontSize: '0.9rem' }}>
+                        <strong>Note:</strong> Certain advanced modules are locked to <Link to="/pricing" style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Professional</Link> and <Link to="/pricing" style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Enterprise</Link> tiers.
+                    </p>
+                </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
-                    <FeatureList title="INJECTION & CORRUPTION" features={[
-                        { name: "SQL Injection (SQLi)", desc: "Union-based, Boolean-Blind, Time-Based Blind, and Error-Based extraction." },
-                        { name: "Command Injection (RCE)", desc: "OS Command injection via shell metacharacters (;, &&, |)." },
-                        { name: "SSTI", desc: "Server-Side Template Injection (Jinja2, Thymeleaf, EJS) leading to RCE." },
-                        { name: "LDAP / XPath", desc: "Directory service manipulation and XML structure queries." }
+                    <FeatureList title="INJECTION & DATA CORRUPTION" features={[
+                        { name: "Multi-Vector SQLi", desc: "Advanced extraction techniques covering Union, Blind (Time/Boolean), and Error-based vectors." },
+                        { name: "Dynamic RCE Core", desc: "Automated shell-metacharacter fuzzing for remote code execution across multiple OS environments." },
+                        { name: "SSTI Validation", desc: "Template engine detection and exploitation for Jinja2, Thymeleaf, and EJS formats." }
                     ]} />
 
-                    <FeatureList title="NEXT.JS / RSC ARSENAL (NEW)" features={[
-                        { name: "Server Action Forgery", desc: "Bypassing auth by fuzzing Next-Action headers to invoke unexposed server functions." },
-                        { name: "Async Context Bleed", desc: "Detecting data leakage between users during high-concurrency RSC rendering." },
-                        { name: "RSC SSRF", desc: "Injecting cloud metadata URLs into Image Optimization endpoints (_next/image)." },
-                        { name: "Hydration Collapse", desc: "Forcing server-side rendering of admin routes via Router-State-Tree manipulation." }
+                    <FeatureList title="MODERN WEB FRAMEWORKS" features={[
+                        { name: "Next.js Action Fuzzing", desc: "Targeted auditing of React Server Actions and unexposed internal API endpoints." },
+                        { name: "RSC Data Leakage", desc: "Validation of Async Context isolation to prevent cross-tenant data exposure." },
+                        { name: "Hydration Stability", desc: "Testing client-side hydration for state manipulation and routing bypasses." }
                     ]} />
 
-                    <FeatureList title="DENIAL OF SERVICE (WARFARE)" features={[
-                        { name: "XML Bomb (Billion Laughs)", desc: "Recursive entity expansion to exhaust server RAM." },
-                        { name: "JSON Bomb (Deep Nesting)", desc: "Exponential payload expansion to crash parsers." },
-                        { name: "ReDoS", desc: "Catastrophic backtracking in Regex engines." },
-                        { name: "Slowloris", desc: "Partial HTTP requests to exhaust thread pools/connections." },
-                        { name: "Traffic Spike", desc: "High-volume request flooding to test scaling limits." }
+                    <FeatureList title="RESILIENCE & STRESS TESTING" features={[
+                        { name: "Recursive Entity Attacks", desc: "XML/JSON bomb validation to ensure parser resilience against resource exhaustion." },
+                        { name: "ReDoS Simulation", desc: "Automated detection of catastrophic backtracking in regular expression engines." },
+                        { name: "Saturation Load", desc: "High-concurrency traffic emulation to test scaling thresholds and WAF resilience." }
                     ]} />
 
-                    <FeatureList title="AUTHENTICATION & LOGIC FLAWS" features={[
-                        { name: "JWT Attacks", desc: "Forging Admin tokens via 'None' algorithm, weak HMAC secrets, and key confusion." },
-                        { name: "IDOR / BOLA", desc: "Broken Object Level Authorization. Iterates violently through user IDs." },
-                        { name: "Race Conditions", desc: "Exploiting Time-of-Check/Time-of-Use (TOCTOU) for double-spending." },
-                        { name: "SSRF (Cloud)", desc: "Targeting AWS IMDSv2, GCP Metadata, and internal K8s endpoints." },
-                        { name: "Prototype Pollution", desc: "Injecting properties into Object.prototype to alter application logic." }
+                    <FeatureList title="LOGIC & IDENTITY" features={[
+                        { name: "JWT Cryptographic Audit", desc: "Validating algorithm isolation, secret strength, and key confusion resilience." },
+                        { name: "BOLA / IDOR Scoping", desc: "Automated iteration through object identifiers to verify authorization boundaries." },
+                        { name: "Race Condition Probing", desc: "Precision timing attacks to detect TOCTOU (Time-of-Check/Time-of-Use) flaws." }
                     ]} />
                 </div>
             </Section>
+
+            {/* NEW SECTION: AUTHENTICATED UPDATES */}
+            <Section title="Enterprise Infrastructure: Updates & Safety" id="enterprise-ops">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px' }}>
+                    <div>
+                        <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Authenticated Update Core</h3>
+                        <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
+                            For Enterprise and Professional users, Breakpoint maintains an encrypted heartbeat with the <strong>Soulmad Update Server</strong>.
+                            This ensures your binary is always running the latest attack vectors and safety patches.
+                        </p>
+                        <CodeBlock label="LICENSE HEARTBEAT REFERENCE" code={`# Endpoint Reference (Internal)
+GET https://api.soulmad.industries/v1/update/check
+Headers:
+  Authorization: Bearer <LICENSE_TOKEN>
+  X-Client-Version: 2.5.2-ELITE
+  X-Hardware-ID: <SHA256_UUID>`} />
+                    </div>
+                    <div>
+                        <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Safety Rails & Governance</h3>
+                        <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
+                            We enforce strict safety gates via the <code>--env</code> flag. Operating in <code>production</code> mode triggers additional
+                            verification steps and restricts destructive payloads unless explicitly overrideen.
+                        </p>
+                        <div style={{ padding: '20px', background: 'var(--color-dim)', border: '1px solid #333', borderRadius: '4px' }}>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--color-accent)', marginBottom: '10px', textTransform: 'uppercase' }}>Safety Logic</div>
+                            <code style={{ fontSize: '0.85rem' }}>
+                                IF env == "production" AND mode == "aggressive":<br />
+                                &nbsp;&nbsp;PROMPT "Are you sure? This may impact uptime."<br />
+                                &nbsp;&nbsp;REQUIRE --force-live-fire
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </Section>
+
 
             {/* 3. ARCHITECTURE & FORENSICS */}
             <Section title="Enterprise Architecture" id="architecture">
@@ -500,6 +552,24 @@ class BreakpointEngine:
                                 </motion.div>
                             </motion.div>
 
+                            {/* --env */}
+                            <motion.div whileHover={{ y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
+                                <div style={{ marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <span style={{ background: 'var(--color-primary)', color: 'black', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>COMPLIANCE</span>
+                                    <h4 style={{ color: 'var(--color-secondary)', fontSize: '1.2rem', fontFamily: 'var(--font-mono)' }}>--env</h4>
+                                </div>
+                                <p style={{ color: 'var(--color-text)', opacity: 0.7, marginBottom: '15px', fontSize: '0.9rem', height: '40px' }}>
+                                    Mandatory environment declaration (dev, staging, production) to enforce safety rails.
+                                </p>
+                                <CodeBlock label="COMMAND" code={`breakpoint --base-url ... --env production`} />
+                                <motion.div
+                                    style={{ border: '1px solid #333', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', height: '100px', background: 'var(--color-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                    whileHover={{ scale: 1.05 }}
+                                >
+                                    <span style={{ color: 'var(--color-text)', opacity: 0.5, fontFamily: 'var(--font-mono)' }}>[Environment Guard Active]</span>
+                                </motion.div>
+                            </motion.div>
+
                         </div>
 
                     </div>
@@ -579,8 +649,8 @@ conditions:
                         <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>AsyncIO event loop managing concurrent vectors.</p>
                     </div>
                     <div>
-                        <strong style={{ color: 'var(--color-accent)' }}>3. Traffic Mutator</strong>
-                        <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>AI-driven payload adaptation based on WAF response.</p>
+                        <strong style={{ color: 'var(--color-accent)' }}>3. Traffic Mutator & Proxy Grid</strong>
+                        <p style={{ fontSize: '0.9rem', opacity: 0.7 }}>AI-driven payload adaptation and "Scorched Earth" smart proxy rotation.</p>
                     </div>
                     <div>
                         <strong style={{ color: 'white' }}>4. Forensic Logger</strong>

@@ -3,13 +3,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const comparisonData = [
-    { feature: "Active Exploitation", breakpoint: "YES (Weaponized)", others: "NO (Passive/Scanner)" },
-    { feature: "Traffic Profiling", breakpoint: "Adversarial (WAF Evasion)", others: "Standard (Blocked)" },
-    { feature: "Payloads", breakpoint: "Context-Aware & Mutating", others: "Static Databases" },
-    { feature: "RSC / Next.js Support", breakpoint: "Native (Action Forgery)", others: "None (Blind)" },
-    { feature: "CI/CD Output", breakpoint: "Pass/Fail + Financial Impact", others: "PDF Report" },
-    { feature: "False Positives", breakpoint: "Near Zero (Verified Exploits)", others: "High (Heuristics)" },
-    { feature: "Performance", breakpoint: "Async/Parallel (Aggressive)", others: "Sequential (Slow)" },
+    { feature: "Exploitation Method", breakpoint: "Active Validation & Proof", others: "Passive Scanning / Heuristics" },
+    { feature: "Traffic Profiling", breakpoint: "Adversarial (WAF Evasive)", others: "Standard Protocol (Blocked)" },
+    { feature: "Payload Logic", breakpoint: "Context-Aware & Mutating", others: "Static String Databases" },
+    { feature: "RSC / Next.js Support", breakpoint: "Native Framework Auditing", others: "None (Legacy Support Only)" },
+    { feature: "CI/CD Output", breakpoint: "Verified Proof of Concept", others: "Risk Scores (Theoretical)" },
+    { feature: "False Positives", breakpoint: "Near Zero (Verified Logic)", others: "High (Heuristic Noise)" },
+    { feature: "Execution Model", breakpoint: "Asynchronous & Parallel", others: "Sequential (Throttled)" },
 ];
 
 export default function ComparisonTable() {
@@ -19,9 +19,9 @@ export default function ComparisonTable() {
                 <motion.h2
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    style={{ textAlign: 'center', color: 'var(--color-text)', marginBottom: '50px' }}
+                    style={{ textAlign: 'center', color: 'var(--color-text)', marginBottom: '50px', letterSpacing: '4px' }}
                 >
-                    VS_LEGACY_SCANNERS
+                    STRATEGIC DIFFERENTIATORS
                 </motion.h2>
 
                 <div style={{ overflowX: 'auto' }}>
