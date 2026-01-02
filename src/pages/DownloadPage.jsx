@@ -17,21 +17,21 @@ export default function DownloadPage({ isDark }) {
 
     const releases = [
         {
-            version: '2.5.2-ELITE',
-            date: '2025-12-28',
+            version: '2.6.3-ELITE',
+            date: '2026-01-02',
             type: 'Stable',
-            notes: 'Unified binary architecture, enhanced WAF bypass core, smart proxy rotation v3.',
+            notes: 'Unified binary architecture, enhanced WAF bypass core, smart proxy rotation v3, and optimized parallel execution.',
             files: [
                 { platform: 'Linux (amd64)', size: '42MB', link: '#' },
-                { platform: 'Windows (x64)', size: '45MB', link: '#' },
+                { platform: 'Windows (x64)', size: '7.9MB', link: '/downloads/breakpoint_windows_x64.exe' },
                 { platform: 'macOS (Silicon)', size: '38MB', link: '#' }
             ]
         },
         {
-            version: '2.5.1-ELITE',
-            date: '2025-12-15',
+            version: '2.6.2-ELITE',
+            date: '2025-12-30',
             type: 'Legacy',
-            notes: 'Initial enterprise feature gating, basic proxy support.',
+            notes: 'Initial enterprise feature gating, improved soft 404 detection.',
             files: [
                 { platform: 'Linux (amd64)', size: '41MB', link: '#' },
                 { platform: 'Windows (x64)', size: '44MB', link: '#' }
