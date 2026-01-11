@@ -18,15 +18,29 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (email, password) => {
-        // Simulate login
+        // Simulate login with deterministic logic for professional feel
+        const isProfessional = email.includes('admin') || email.includes('pro');
+        const isElite = email.includes('elite');
+
+        let tier = 'Free';
+        let licenseKey = `BRK-FREE-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+
+        if (isElite) {
+            tier = 'Elite';
+            licenseKey = `BRK-ELITE-${Math.random().toString(36).substring(2, 15).toUpperCase()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+        } else if (isProfessional) {
+            tier = 'Pro';
+            licenseKey = `BRK-PRO-${Math.random().toString(36).substring(2, 15).toUpperCase()}`;
+        }
+
         const userData = {
             email,
-            id: 'u123',
-            name: 'Security Admin',
-            tier: 'Free', // Default tier
+            id: 'u' + Math.floor(Math.random() * 1000),
+            name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1),
+            tier: tier,
             status: 'Active',
-            expiry: '2026-12-31',
-            licenseKey: 'BRK-FREE-XXXX-YYYY'
+            expiry: isElite ? '2026-12-31' : (isProfessional ? '2026-06-30' : 'Permanent'),
+            licenseKey: licenseKey
         };
         setUser(userData);
         localStorage.setItem('breakpoint_user', JSON.stringify(userData));

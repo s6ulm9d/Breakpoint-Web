@@ -57,33 +57,72 @@ export default function Dashboard({ isDark }) {
                             background: isDark ? '#0a0a0a' : '#fff',
                             padding: '40px',
                             borderRadius: '12px',
-                            border: `1px solid ${isDark ? '#222' : '#eee'}`
+                            border: `1px solid ${isDark ? '#222' : '#eee'}`,
+                            boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
                         }}
                     >
                         <h3 style={{ marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ color: 'var(--color-primary)' }}>🔑</span> License Details
+                            <span style={{ color: 'var(--color-primary)' }}>🔑</span> Unified Identity
                         </h3>
-                        <div style={{ marginBottom: '20px' }}>
-                            <label style={{ fontSize: '0.7rem', opacity: 0.5, display: 'block', marginBottom: '5px' }}>LICENSE TOKEN</label>
-                            <code style={{
-                                display: 'block',
-                                padding: '15px',
-                                background: isDark ? '#111' : '#f5f5f5',
-                                borderRadius: '4px',
-                                fontSize: '1rem',
-                                color: 'var(--color-secondary)'
-                            }}>
-                                {user.licenseKey}
-                            </code>
+                        <div style={{ marginBottom: '25px' }}>
+                            <label style={{ fontSize: '0.7rem', opacity: 0.5, display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>License Key</label>
+                            <div style={{ position: 'relative' }}>
+                                <code style={{
+                                    display: 'block',
+                                    padding: '18px',
+                                    background: isDark ? '#050505' : '#f5f5f5',
+                                    borderRadius: '6px',
+                                    fontSize: '1rem',
+                                    color: 'var(--color-secondary)',
+                                    border: '1px solid #222',
+                                    fontFamily: 'var(--font-mono)',
+                                    overflowX: 'auto'
+                                }}>
+                                    {user.licenseKey}
+                                </code>
+                                <button
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(user.licenseKey);
+                                        alert("License Key copied to clipboard!");
+                                    }}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '10px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        background: 'var(--color-dim)',
+                                        border: '1px solid #333',
+                                        color: 'var(--color-text)',
+                                        padding: '5px 12px',
+                                        fontSize: '0.7rem',
+                                        cursor: 'pointer',
+                                        borderRadius: '4px'
+                                    }}
+                                >
+                                    COPY
+                                </button>
+                            </div>
                         </div>
+
+                        <div style={{
+                            padding: '15px',
+                            background: 'rgba(56, 189, 248, 0.05)',
+                            borderLeft: '4px solid #38bdf8',
+                            marginBottom: '30px',
+                            fontSize: '0.9rem'
+                        }}>
+                            To connect your terminal, run:<br />
+                            <code style={{ background: '#000', padding: '2px 5px', color: '#38bdf8' }}>breakpoint --login</code>
+                        </div>
+
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '30px' }}>
                             <div>
                                 <label style={{ fontSize: '0.7rem', opacity: 0.5 }}>STATUS</label>
-                                <div style={{ fontSize: '0.9rem', color: 'var(--color-secondary)' }}>● {user.status}</div>
+                                <div style={{ fontSize: '0.9rem', color: 'var(--color-secondary)', fontWeight: 'bold' }}>● {user.status.toUpperCase()}</div>
                             </div>
                             <div>
                                 <label style={{ fontSize: '0.7rem', opacity: 0.5 }}>TIER</label>
-                                <div style={{ fontSize: '0.9rem' }}>{user.tier}</div>
+                                <div style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>{user.tier.toUpperCase()} EDITION</div>
                             </div>
                         </div>
                         {user.tier === 'Free' && (
@@ -95,9 +134,12 @@ export default function Dashboard({ isDark }) {
                                 color: 'black',
                                 textDecoration: 'none',
                                 fontWeight: 'bold',
-                                borderRadius: '4px'
+                                borderRadius: '4px',
+                                textTransform: 'uppercase',
+                                fontSize: '0.9rem',
+                                letterSpacing: '1px'
                             }}>
-                                Upgrade to Pro
+                                Upgrade to Enterprise
                             </Link>
                         )}
                     </motion.div>
@@ -120,16 +162,19 @@ export default function Dashboard({ isDark }) {
                         </p>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
                             <li style={{ padding: '15px 0', borderBottom: '1px solid #222', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span>Breakpoint v2.5.2-ELITE (Linux)</span>
-                                <Link to="/download" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontSize: '0.9rem' }}>Download</Link>
+                                <span>Breakpoint v2.6.3-ELITE (Linux)</span>
+                                <a href="https://github.com/s6ulm9d/Breakpoint/releases/tag/v2.6.3" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontSize: '0.9rem' }}>Download</a>
                             </li>
                             <li style={{ padding: '15px 0', borderBottom: '1px solid #222', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span>Breakpoint v2.5.2-ELITE (Windows)</span>
-                                <Link to="/download" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontSize: '0.9rem' }}>Download</Link>
+                                <span>Breakpoint v2.6.3-ELITE (Windows)</span>
+                                <a href="https://github.com/s6ulm9d/Breakpoint/releases/download/v2.6.3/breakpoint-installer.exe" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontSize: '0.9rem' }}>Download</a>
                             </li>
                             <li style={{ padding: '15px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <span>Documentation (PDF)</span>
                                 <a href="#" style={{ color: 'var(--color-accent)', textDecoration: 'none', fontSize: '0.9rem' }}>View</a>
+                            </li>
+                            <li style={{ padding: '15px 0', borderTop: '1px solid #222', marginTop: '10px', display: 'flex', justifyContent: 'center' }}>
+                                <Link to="/download" style={{ color: 'var(--color-accent)', textDecoration: 'none', fontSize: '0.8rem', opacity: 0.8 }}>View All Releases & Platform Builds</Link>
                             </li>
                         </ul>
                     </motion.div>

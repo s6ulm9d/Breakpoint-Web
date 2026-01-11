@@ -83,14 +83,14 @@ export default function ProfessionalContent() {
         <div style={{ background: 'var(--color-bg)', transition: 'background 0.3s' }}>
 
             {/* 1. MISSION STATEMENT */}
-            <Section title="The Strategic Logic: Proactive Validation" id="about">
+            <Section title="The Strategic Logic: Empirical Validation" id="about">
                 <p style={{ maxWidth: '900px', marginBottom: '30px', fontSize: '1.25rem', color: 'var(--color-text)' }}>
-                    <strong>BREAKPOINT</strong> is the industry's first <strong>Unified Security Orchestration</strong> platform designed for automated offensive research.
+                    <strong>BREAKPOINT</strong> is the industry's first <strong>Unified Security Orchestration</strong> platform designed for automated adversarial emulation.
                 </p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '30px', marginBottom: '30px' }}>
                     <div>
                         <p style={{ color: 'var(--color-text)', opacity: 0.9 }}>
-                            Traditional scanners provide theoretical risk. Breakpoint provides <strong>empirical proof</strong>. By shifting from passive detection to active validation, we eliminate the ambiguity of "potential" vulnerabilities.
+                            Traditional scanners provide theoretical risk. Breakpoint provides <strong>empirical proof</strong>. By shifting from passive detection to active validation, we eliminate the ambiguity of "potential" vulnerabilities through controlled exploitation.
                         </p>
                         <p style={{ color: 'var(--color-text)', opacity: 0.9 }}>
                             Our core mission is to empower red teams and security researchers with a single, high-performance binary that scales across any environment—from local development to global cloud infrastructure.
@@ -101,15 +101,15 @@ export default function ProfessionalContent() {
                         <ul style={{ listStyle: 'none', padding: 0, fontSize: '0.95rem' }}>
                             <li style={{ marginBottom: '12px', display: 'flex', gap: '10px' }}>
                                 <span style={{ color: 'var(--color-primary)' }}>●</span>
-                                <div><strong>Automated Validation</strong>: Real-time confirmation of security controls.</div>
+                                <div><strong>Damage Assessment</strong>: Automated financial liability and downtime estimation.</div>
                             </li>
                             <li style={{ marginBottom: '12px', display: 'flex', gap: '10px' }}>
                                 <span style={{ color: 'var(--color-primary)' }}>●</span>
-                                <div><strong>Compliance Integration</strong>: Native SARIF and JSONL exports for SOC/SIEM.</div>
+                                <div><strong>Compliance Mapping</strong>: Native mapping to OWASP 2021, NIST 800-53, and PCI DSS 4.0.</div>
                             </li>
                             <li style={{ display: 'flex', gap: '10px' }}>
                                 <span style={{ color: 'var(--color-primary)' }}>●</span>
-                                <div><strong>CI/CD Resilience</strong>: Automated gating for secure software delivery.</div>
+                                <div><strong>AsyncIO Core</strong>: Massive throughput exceeding 5,000 requests per second.</div>
                             </li>
                         </ul>
                     </div>
@@ -117,67 +117,75 @@ export default function ProfessionalContent() {
             </Section>
 
             {/* 2. THE UNIFIED ATTACK ARSENAL */}
-            <Section title="The Unified Attack Arsenal" id="capabilities">
+            <Section title="Unified Attack Arsenal (v2.8.0-ELITE)" id="capabilities">
                 <div style={{ marginBottom: '40px', padding: '20px', background: 'rgba(255, 62, 62, 0.05)', border: '1px solid rgba(255, 62, 62, 0.2)', borderRadius: '8px' }}>
                     <p style={{ margin: 0, color: 'var(--color-primary)', fontSize: '0.9rem' }}>
-                        <strong>Note:</strong> Certain advanced modules are locked to <Link to="/pricing" style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Professional</Link> and <Link to="/pricing" style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Enterprise</Link> tiers.
+                        <strong>Note:</strong> Advanced adversarial modules and the Damage Assessment engine are locked to <Link to="/pricing" style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Elite</Link> and <Link to="/pricing" style={{ color: 'var(--color-primary)', fontWeight: 'bold' }}>Professional</Link> tiers.
                     </p>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
-                    <FeatureList title="INJECTION & DATA CORRUPTION" features={[
-                        { name: "Multi-Vector SQLi", desc: "Advanced extraction techniques covering Union, Blind (Time/Boolean), and Error-based vectors." },
-                        { name: "Dynamic RCE Core", desc: "Automated shell-metacharacter fuzzing for remote code execution across multiple OS environments." },
-                        { name: "SSTI Validation", desc: "Template engine detection and exploitation for Jinja2, Thymeleaf, and EJS formats." }
+                    <FeatureList title="INJECTION & RCE CORE" features={[
+                        { name: "Multi-Vector SQLi", desc: "Union-based, Error-based, and Blind (Time/Boolean) techniques with automated database dumping." },
+                        { name: "Dynamic RCE Engine", desc: "Automated shell-metacharacter fuzzing and reverse shell attempts across multiple environments." },
+                        { name: "SSTI & XXE Probing", desc: "Template injection and External Entity exfiltration testing for modern data parsers." }
                     ]} />
 
-                    <FeatureList title="MODERN WEB FRAMEWORKS" features={[
-                        { name: "Next.js Action Fuzzing", desc: "Targeted auditing of React Server Actions and unexposed internal API endpoints." },
-                        { name: "RSC Data Leakage", desc: "Validation of Async Context isolation to prevent cross-tenant data exposure." },
-                        { name: "Hydration Stability", desc: "Testing client-side hydration for state manipulation and routing bypasses." }
+                    <FeatureList title="MODERN FRAMEWORK EXPLOITS" features={[
+                        { name: "RSC Server Action Forge", desc: "Targeted auditing of React Server Actions and unexposed internal API endpoints in Next.js." },
+                        { name: "Hydration Stability Audit", desc: "Validation of client-side hydration for state manipulation and routing bypasses." },
+                        { name: "NoSQL Operator Abuse", desc: "Exploiting Mongo/NoSQL logic operators for auth bypass and data leakage." }
                     ]} />
 
-                    <FeatureList title="RESILIENCE & STRESS TESTING" features={[
-                        { name: "Recursive Entity Attacks", desc: "XML/JSON bomb validation to ensure parser resilience against resource exhaustion." },
-                        { name: "ReDoS Simulation", desc: "Automated detection of catastrophic backtracking in regular expression engines." },
-                        { name: "Saturation Load", desc: "High-concurrency traffic emulation to test scaling thresholds and WAF resilience." }
+                    <FeatureList title="RESILIENCE & DOS (DESTRUCTIVE)" features={[
+                        { name: "Extreme Annihilation", desc: "High-concurrency traffic emulation exceeding 50,000 requests to induce service failure." },
+                        { name: "Slowloris & Socket Stress", desc: "Inducing resource exhaustion via partial HTTP requests and connection pool flooding." },
+                        { name: "Recursive Entity Bombs", desc: "XML and JSON bomb validation to ensure parser resilience against billion-laughs attacks." }
                     ]} />
 
-                    <FeatureList title="LOGIC & IDENTITY" features={[
-                        { name: "JWT Cryptographic Audit", desc: "Validating algorithm isolation, secret strength, and key confusion resilience." },
+                    <FeatureList title="AUTH, ACL & DATA LEAKAGE" features={[
+                        { name: "JWT Cryptographic Audit", desc: "Validating algorithm isolation (none-alg), weak secrets, and key confusion resilience." },
                         { name: "BOLA / IDOR Scoping", desc: "Automated iteration through object identifiers to verify authorization boundaries." },
-                        { name: "Race Condition Probing", desc: "Precision timing attacks to detect TOCTOU (Time-of-Check/Time-of-Use) flaws." }
+                        { name: "Secret & Config Leakage", desc: "Scanning responses for API keys, env files, and git history exposure." }
                     ]} />
                 </div>
             </Section>
 
-            {/* NEW SECTION: AUTHENTICATED UPDATES */}
-            <Section title="Enterprise Infrastructure: Updates & Safety" id="enterprise-ops">
+            {/* NEW SECTION: UNIFIED IDENTITY & SYNC */}
+            <Section title="Unified Identity: Strict Sync Architecture" id="sync">
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px' }}>
                     <div>
-                        <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Authenticated Update Core</h3>
+                        <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Real-time License Synchronization</h3>
                         <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
-                            For Enterprise and Professional users, Breakpoint maintains an encrypted heartbeat with the <strong>Soulmad Update Server</strong>.
-                            This ensures your binary is always running the latest attack vectors and safety patches.
+                            For Elite and Professional users, Breakpoint enforces a strict identity sync. Your <strong>Terminal Identity</strong>
+                            is cryptographically tied to your web account, ensuring premium features are available only to authorized operators.
                         </p>
-                        <CodeBlock label="LICENSE HEARTBEAT REFERENCE" code={`# Endpoint Reference (Internal)
-GET https://api.soulmad.industries/v1/update/check
-Headers:
-  Authorization: Bearer <LICENSE_TOKEN>
-  X-Client-Version: 2.5.2-ELITE
-  X-Hardware-ID: <SHA256_UUID>`} />
+                        <CodeBlock label="IDENTITY SYNC HANDSHAKE" code={`# CLI-to-Web Validation (AES-256)
+GET /v1/validate HTTP/1.1
+Host: api.breakpoint.io
+Authorization: Bearer <IDENTITY_TOKEN>
+X-Hardware-ID: <SHA256_UUID>
+
+# Response (Verified Handshake)
+{
+  "status": "valid",
+  "tier": "PREMIUM",
+  "handshake": "SIGNATURE_CONFIRMED"
+}`} />
                     </div>
                     <div>
-                        <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Safety Rails & Governance</h3>
+                        <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Governance & Safety Gates</h3>
                         <p style={{ color: 'var(--color-text)', opacity: 0.8, marginBottom: '20px' }}>
-                            We enforce strict safety gates via the <code>--env</code> flag. Operating in <code>production</code> mode triggers additional
-                            verification steps and restricts destructive payloads unless explicitly overrideen.
+                            We enforce strict safety gates via the <code>--env</code> and <code>--aggressive</code> flags.
+                            The system automatically restricts destructive payloads in production environments unless a
+                            verified license and explicit override are present.
                         </p>
                         <div style={{ padding: '20px', background: 'var(--color-dim)', border: '1px solid #333', borderRadius: '4px' }}>
-                            <div style={{ fontSize: '0.8rem', color: 'var(--color-accent)', marginBottom: '10px', textTransform: 'uppercase' }}>Safety Logic</div>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--color-accent)', marginBottom: '10px', textTransform: 'uppercase' }}>Safety Logic Flow</div>
                             <code style={{ fontSize: '0.85rem' }}>
-                                IF env == "production" AND mode == "aggressive":<br />
-                                &nbsp;&nbsp;PROMPT "Are you sure? This may impact uptime."<br />
+                                IF mode == "destructive" AND env == "production":<br />
+                                &nbsp;&nbsp;VERIFY license_tier == "ELITE"<br />
+                                &nbsp;&nbsp;PROMPT "Lethal payloads authorized?"<br />
                                 &nbsp;&nbsp;REQUIRE --force-live-fire
                             </code>
                         </div>
@@ -185,44 +193,39 @@ Headers:
                 </div>
             </Section>
 
-
             {/* 3. ARCHITECTURE & FORENSICS */}
-            <Section title="Enterprise Architecture" id="architecture">
+            <Section title="Enterprise Infrastructure" id="infrastructure">
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
                     <div>
-                        <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Modular Engine</h3>
+                        <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Modular Adversarial Engine</h3>
                         <p style={{ color: 'var(--color-text)', opacity: 0.8 }}>
-                            Breakpoint is built on <strong>Python 3.8+</strong> using a plugin-first architecture.
-                            Every attack is a standalone module (`breakpoint.attacks.*`), allowing for rapid inclusion of new CVEs (e.g., Log4Shell).
+                            Built on <strong>Python 3.10+</strong> using a plugin-first architecture.
+                            Every adversarial campaign is a standalone module, allowing for sub-millisecond
+                            context switching between attack vectors.
                         </p>
                         <div style={{ marginTop: '20px' }}>
-                            <CodeBlock label="ENGINE ORCHESTRATION" code={`# Pseudo-code Structure
-class BreakpointEngine:
-    def __init__(self, target, config):
-        self.loader = PluginLoader("./attacks")
-        self.logger = ForensicLogger()
-
-    def execute_campaign(self, strategy):
-        for attack in strategy.steps:
-            if not self.safety_check(target): break
-            result = attack.run(target)
-            self.logger.sign(result)`} />
+                            <CodeBlock label="ENGINE EXECUTION PIPELINE" code={`# High-Concurrency Orchestration
+async def launch_campaign(self, scenario):
+    async with TrafficManager(scenario.config) as manager:
+        for vector in scenario.vectors:
+            # Parallel execution with rate-limit compliance
+            task = manager.dispatch(vector)
+            await task.monitor()`} />
                         </div>
                     </div>
                     <div>
                         <h3 style={{ color: 'var(--color-text)', marginBottom: '20px' }}>Forensic Audit Trail</h3>
                         <p style={{ color: 'var(--color-text)', opacity: 0.8 }}>
-                            Every transaction is logged to an immutable, cryptographically signed JSONL file (`audit_UUID.log`).
-                            This provides a Chain of Custody for post-mortem analysis.
+                            Every transaction is logged to an immutable, cryptographically signed JSONL file.
+                            This provides a Chain of Custody for post-mortem analysis and SOC team handoff.
                         </p>
-                        <CodeBlock label="SAMPLE LOG ENTRY (JSONL)" code={`{
+                        <CodeBlock label="SAMPLE AUDIT LOG ENTRY" code={`{
   "timestamp": 1765347141.826, 
-  "method": "POST", 
-  "url": "https://api.target.com/v1/user", 
-  "payload_type": "SSRF_AWS_METADATA",
-  "request_body": "REDACTED_CONFIDENTIAL_PAYLOAD", 
-  "status_code": 200, 
-  "risk_score": "CRITICAL" 
+  "vector": "SSRF_CLOUD_METADATA",
+  "target": "https://api.internal.svc", 
+  "compliance_mapping": ["OWASP_A10", "NIST_AC-2"],
+  "response_signature": "VULNERABILITY_CONFIRMED",
+  "risk_score": 9.8 
 }`} />
                     </div>
                 </div>

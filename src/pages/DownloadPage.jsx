@@ -20,11 +20,11 @@ export default function DownloadPage({ isDark }) {
             version: '2.6.3-ELITE',
             date: '2026-01-02',
             type: 'Stable',
-            notes: 'Unified binary architecture, enhanced WAF bypass core, smart proxy rotation v3, and optimized parallel execution.',
+            notes: 'Unified binary architecture, enhanced WAF bypass core, smart proxy rotation v3, and optimized PATH resolution for Windows.',
             files: [
-                { platform: 'Linux (amd64)', size: '42MB', link: '#' },
-                { platform: 'Windows (x64)', size: '7.9MB', link: '/downloads/breakpoint_windows_x64.exe' },
-                { platform: 'macOS (Silicon)', size: '38MB', link: '#' }
+                { platform: 'Linux (amd64)', size: '96KB', link: 'https://github.com/s6ulm9d/Breakpoint/releases/tag/v2.6.3' },
+                { platform: 'Windows (x64)', size: '7.9MB', link: 'https://github.com/s6ulm9d/Breakpoint/releases/download/v2.6.3/breakpoint-installer.exe' },
+                { platform: 'macOS (Silicon)', size: '38MB', link: 'https://github.com/s6ulm9d/Breakpoint/releases/tag/v2.6.3' }
             ]
         },
         {
