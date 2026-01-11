@@ -53,7 +53,27 @@ export const AuthProvider = ({ children }) => {
 
     const upgrade = (newTier) => {
         if (user) {
-            const updatedUser = { ...user, tier: newTier };
+            let licenseKey = user.licenseKey;
+            let expiry = user.expiry;
+            let tierName = newTier;
+
+            // Normalize tier names for the identity engine
+            if (newTier === 'Professional' || newTier === 'Pro') {
+                tierName = 'Pro';
+                licenseKey = `BRK-PRO-${Math.random().toString(36).substring(2, 15).toUpperCase()}`;
+                expiry = '2026-06-30';
+            } else if (newTier === 'Enterprise' || newTier === 'Elite') {
+                tierName = 'Elite';
+                licenseKey = `BRK-ELITE-${Math.random().toString(36).substring(2, 15).toUpperCase()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+                expiry = '2026-12-31';
+            }
+
+            const updatedUser = {
+                ...user,
+                tier: tierName,
+                licenseKey: licenseKey,
+                expiry: expiry
+            };
             setUser(updatedUser);
             localStorage.setItem('breakpoint_user', JSON.stringify(updatedUser));
         }
