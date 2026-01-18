@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function PricingPage({ isDark }) {
-    const { user, upgrade } = useAuth();
+    const { user, startPaymentFlow } = useAuth();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const plans = [
         {
@@ -22,7 +24,7 @@ export default function PricingPage({ isDark }) {
             ],
             buttonText: user?.tier === 'Free' ? 'Current Plan' : 'Get Started',
             highlight: false,
-            action: () => { }
+            action: () => { if (!user) navigate('/login'); }
         },
         {
             name: 'Professional',
@@ -37,14 +39,25 @@ export default function PricingPage({ isDark }) {
                 'Priority Support',
                 'Aggressive Performance Modes'
             ],
-            buttonText: user?.tier === 'Professional' ? 'Current Plan' : 'Upgrade to Pro',
+            buttonText: loading ? 'Initializing...' : (user?.tier === 'Pro' ? 'Current Plan' : 'Buy Professional'),
             highlight: true,
-            action: () => { upgrade('Professional'); navigate('/dashboard'); }
+            action: async () => {
+                if (!user) { navigate('/login'); return; }
+                if (user.tier === 'Pro') return;
+
+                setLoading(true);
+                setError(null);
+                const result = await startPaymentFlow('Professional');
+                if (result.error) {
+                    setError(result.error);
+                    setLoading(false);
+                }
+            }
         },
         {
             name: 'Enterprise',
-            price: 'Custom',
-            period: 'tailored solutions',
+            price: '$249',
+            period: 'per month',
             description: 'For organizations and red teams.',
             features: [
                 'Everything in Pro +',
@@ -54,9 +67,20 @@ export default function PricingPage({ isDark }) {
                 'Fleet Orchestration',
                 'On-Premise Deployment'
             ],
-            buttonText: 'Contact Sales',
+            buttonText: loading ? 'Initializing...' : (user?.tier === 'Elite' ? 'Current Plan' : 'Buy Enterprise'),
             highlight: false,
-            action: () => { navigate('/#contact'); }
+            action: async () => {
+                if (!user) { navigate('/login'); return; }
+                if (user.tier === 'Elite') return;
+
+                setLoading(true);
+                setError(null);
+                const result = await startPaymentFlow('Elite');
+                if (result.error) {
+                    setError(result.error);
+                    setLoading(false);
+                }
+            }
         }
     ];
 
@@ -67,8 +91,14 @@ export default function PricingPage({ isDark }) {
                     <h1 style={{ fontSize: '3.5rem', marginBottom: '20px' }}>Unified Scaling</h1>
                     <p style={{ opacity: 0.6, maxWidth: '700px', margin: '0 auto', fontSize: '1.2rem' }}>
                         Choose the power level required for your security operations.
-                        A single binary, unlocked by your license identity.
+                        Real payment integration via encrypted checkout.
                     </p>
+                    {error && (
+                        <div style={{ marginTop: '20px', padding: '15px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid #ef4444', borderRadius: '4px', maxWidth: '500px', margin: '20px auto' }}>
+                            ⚠️ {error} <br />
+                            <small>Make sure STRIPE_SECRET_KEY is set in Vercel Environment Variables.</small>
+                        </div>
+                    )}
                 </header>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
@@ -123,7 +153,7 @@ export default function PricingPage({ isDark }) {
 
                             <button
                                 onClick={plan.action}
-                                disabled={user?.tier === plan.name}
+                                disabled={loading || user?.tier === (plan.name === 'Professional' ? 'Pro' : (plan.name === 'Enterprise' ? 'Elite' : plan.name))}
                                 style={{
                                     width: '100%',
                                     padding: '15px',
@@ -132,8 +162,8 @@ export default function PricingPage({ isDark }) {
                                     border: plan.highlight ? 'none' : `1px solid ${isDark ? '#333' : '#ccc'}`,
                                     borderRadius: '4px',
                                     fontWeight: 'bold',
-                                    cursor: user?.tier === plan.name ? 'default' : 'pointer',
-                                    opacity: user?.tier === plan.name ? 0.5 : 1,
+                                    cursor: 'pointer',
+                                    opacity: (loading || user?.tier === (plan.name === 'Professional' ? 'Pro' : (plan.name === 'Enterprise' ? 'Elite' : plan.name))) ? 0.5 : 1,
                                     transition: 'all 0.2s'
                                 }}
                             >

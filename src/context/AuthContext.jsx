@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulate checking for existing session
+        // Check for session in localStorage
         const storedUser = localStorage.getItem('breakpoint_user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (email, password) => {
-        // Simulate login with deterministic logic for professional feel
+        // Fallback dummy login
         const isProfessional = email.includes('admin') || email.includes('pro');
         const isElite = email.includes('elite');
 
@@ -40,7 +40,8 @@ export const AuthProvider = ({ children }) => {
             tier: tier,
             status: 'Active',
             expiry: isElite ? '2026-12-31' : (isProfessional ? '2026-06-30' : 'Permanent'),
-            licenseKey: licenseKey
+            licenseKey: licenseKey,
+            joined: new Date().toISOString().split('T')[0]
         };
         setUser(userData);
         localStorage.setItem('breakpoint_user', JSON.stringify(userData));
@@ -51,36 +52,54 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('breakpoint_user');
     };
 
-    const upgrade = (newTier) => {
-        if (user) {
-            let licenseKey = user.licenseKey;
-            let expiry = user.expiry;
-            let tierName = newTier;
+    const verifyPaymentSession = async (sessionId) => {
+        try {
+            const response = await fetch(`/api/v1/verify-payment?session_id=${sessionId}`);
+            const data = await response.json();
 
-            // Normalize tier names for the identity engine
-            if (newTier === 'Professional' || newTier === 'Pro') {
-                tierName = 'Pro';
-                licenseKey = `BRK-PRO-${Math.random().toString(36).substring(2, 15).toUpperCase()}`;
-                expiry = '2026-06-30';
-            } else if (newTier === 'Enterprise' || newTier === 'Elite') {
-                tierName = 'Elite';
-                licenseKey = `BRK-ELITE-${Math.random().toString(36).substring(2, 15).toUpperCase()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
-                expiry = '2026-12-31';
+            if (data.status === 'verified') {
+                const updatedUser = {
+                    ...user,
+                    tier: data.tier,
+                    licenseKey: data.licenseKey,
+                    expiry: data.expiry,
+                    subscriptionStatus: 'Verified',
+                    lastPayment: new Date().toISOString().split('T')[0]
+                };
+                setUser(updatedUser);
+                localStorage.setItem('breakpoint_user', JSON.stringify(updatedUser));
+                return { success: true, tier: data.tier };
             }
+            return { success: false, error: data.error };
+        } catch (err) {
+            console.error("Verification failed:", err);
+            return { success: false, error: "Network error during verification." };
+        }
+    };
 
-            const updatedUser = {
-                ...user,
-                tier: tierName,
-                licenseKey: licenseKey,
-                expiry: expiry
-            };
-            setUser(updatedUser);
-            localStorage.setItem('breakpoint_user', JSON.stringify(updatedUser));
+    const startPaymentFlow = async (plan) => {
+        if (!user) return { error: 'Not logged in' };
+
+        try {
+            const response = await fetch('/api/v1/create-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ plan, userEmail: user.email })
+            });
+            const data = await response.json();
+
+            if (data.url) {
+                window.location.href = data.url; // Redirect to Real Stripe Checkout
+                return { success: true };
+            }
+            return { error: data.error || 'Failed to create payment session' };
+        } catch (err) {
+            return { error: 'Stripe integration error. Check your server keys.' };
         }
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, upgrade, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, startPaymentFlow, verifyPaymentSession, loading }}>
             {children}
         </AuthContext.Provider>
     );
